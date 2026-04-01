@@ -16,6 +16,7 @@
             --text-color: #333;
             --white: #ffffff;
             --danger: #d32f2f;
+            --db-color: #00796b; /* Warna untuk Database */
         }
 
         * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -126,10 +127,10 @@
         .admin-header { text-align: center; margin-bottom: 30px; }
         .admin-header h2 { color: var(--primary-color); }
 
-        .admin-grid { display: grid; grid-template-columns: 1fr; gap: 15px; }
+        .admin-grid { display: grid; grid-template-columns: 1fr; gap: 12px; }
 
         .btn-admin {
-            padding: 20px;
+            padding: 18px;
             border-radius: 15px;
             color: white;
             border: none;
@@ -142,11 +143,13 @@
             box-shadow: 0 4px 10px rgba(0,0,0,0.1);
             width: 100%;
             font-size: 15px;
+            text-align: left;
         }
 
         .btn-b1 { background-color: #fb8c00; }
         .btn-b2 { background-color: #f4511e; }
         .btn-dash { background-color: #0d47a1; }
+        .btn-db { background-color: var(--db-color); }
         
         .btn-back {
             margin-top: 30px;
@@ -245,6 +248,10 @@
                     <i class="fas fa-user-check"></i>
                     <span>Input Data Bendahara 2 (Bpk Bambang)</span>
                 </button>
+                <button class="btn-admin btn-db" onclick="openPinModal('db')">
+                    <i class="fas fa-users"></i>
+                    <span>Database Warga</span>
+                </button>
                 <button class="btn-admin btn-dash" onclick="openPinModal('admin')">
                     <i class="fas fa-chart-line"></i>
                     <span>Rincian Iuran Outstanding</span>
@@ -283,9 +290,9 @@
                 <button class="key" onclick="pressKey('7')">7</button>
                 <button class="key" onclick="pressKey('8')">8</button>
                 <button class="key" onclick="pressKey('9')">9</button>
-                <button class="key" onclick="clearPin()" style="color:red">C</button>
+                <button class="key clear" onclick="clearPin()" style="color:red">C</button>
                 <button class="key" onclick="pressKey('0')">0</button>
-                <button class="key" onclick="backspace()"><i class="fas fa-backspace"></i></button>
+                <button class="key backspace" onclick="backspace()"><i class="fas fa-backspace"></i></button>
             </div>
             <button onclick="closeModal()" style="margin-top: 15px; border:none; background:none; color:#bbb; font-size:12px;">Batal</button>
         </div>
@@ -303,6 +310,11 @@
                 pin: "748596",
                 url: "https://script.google.com/macros/s/AKfycbznJXao3iX_MoxlrVKUdRB7Olr2yvft1QxHdp2TaUIhUFGfTGT1DI8zlwTj7D0Fe0kk-g/exec",
                 title: "Akses Bendahara 2"
+            },
+            'db': {
+                pin: "895623",
+                url: "https://script.google.com/macros/s/AKfycbxh80hKAAPAkPQ-g9vc3DoV2juZ6XQZod1cPKXcU-60x8-Md_TX3zbkFHxqDH0FjIjY-A/exec",
+                title: "Akses Database Warga"
             },
             'admin': {
                 pin: "142536",
@@ -372,7 +384,6 @@
             }
         }
 
-        // Tutup modal jika klik di luar box
         window.onclick = function(event) {
             const modal = document.getElementById('pinModal');
             if (event.target == modal) closeModal();
