@@ -27,7 +27,6 @@
             line-height: 1.6;
         }
 
-        /* --- HEADER --- */
         header {
             background: linear-gradient(135deg, var(--primary-color), #1976d2);
             color: var(--white);
@@ -62,7 +61,6 @@
         }
 
         .hero-card:active { transform: scale(0.97); }
-
         .hero-text h2 { font-size: 20px; font-weight: 700; margin-bottom: 5px; }
         .hero-text p { font-size: 14px; opacity: 0.9; }
 
@@ -106,17 +104,9 @@
         }
 
         .card-small:active { transform: scale(0.95); background: #f0f0f0; }
-
-        .card-small i {
-            font-size: 28px;
-            color: var(--primary-color);
-            margin-bottom: 10px;
-            display: block;
-        }
-
+        .card-small i { font-size: 28px; color: var(--primary-color); margin-bottom: 10px; display: block; }
         .card-small span { font-size: 14px; font-weight: 600; }
 
-        /* --- ADMIN SECTION BUTTON --- */
         .admin-trigger {
             background: white;
             border-radius: 20px;
@@ -131,34 +121,27 @@
             transition: 0.2s;
         }
 
-        .admin-trigger i { color: #666; font-size: 20px; }
-
         /* --- PAGE PENGURUS --- */
         #admin-page { display: none; }
-        
-        .admin-header {
-            text-align: center;
-            margin-bottom: 30px;
-        }
-
+        .admin-header { text-align: center; margin-bottom: 30px; }
         .admin-header h2 { color: var(--primary-color); }
 
-        .admin-grid {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 15px;
-        }
+        .admin-grid { display: grid; grid-template-columns: 1fr; gap: 15px; }
 
         .btn-admin {
             padding: 20px;
             border-radius: 15px;
             color: white;
-            text-decoration: none;
+            border: none;
+            cursor: pointer;
+            font-family: 'Poppins', sans-serif;
             font-weight: 600;
             display: flex;
             align-items: center;
             gap: 15px;
             box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            width: 100%;
+            font-size: 15px;
         }
 
         .btn-b1 { background-color: #fb8c00; }
@@ -195,51 +178,17 @@
             text-align: center;
         }
 
-        .pin-display {
-            display: flex;
-            justify-content: center;
-            gap: 10px;
-            margin: 20px 0;
-        }
+        .pin-display { display: flex; justify-content: center; gap: 10px; margin: 20px 0; }
+        .pin-dot { width: 15px; height: 15px; background: #ddd; border-radius: 50%; }
+        .pin-dot.active { background: var(--primary-color); transform: scale(1.2); }
 
-        .pin-dot {
-            width: 15px;
-            height: 15px;
-            background: #ddd;
-            border-radius: 50%;
-        }
-
-        .pin-dot.active {
-            background: var(--primary-color);
-            transform: scale(1.2);
-        }
-
-        .keypad {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 10px;
-        }
-
-        .key {
-            background: #f8f9fa;
-            border: 1px solid #eee;
-            padding: 15px;
-            font-size: 20px;
-            font-weight: 700;
-            border-radius: 15px;
-            cursor: pointer;
-        }
-
+        .keypad { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+        .key { background: #f8f9fa; border: 1px solid #eee; padding: 15px; font-size: 20px; font-weight: 700; border-radius: 15px; cursor: pointer; }
         .key:active { background: #e3f2fd; }
 
         .error-msg { color: var(--danger); font-size: 12px; margin-bottom: 10px; display: none; }
 
-        footer {
-            text-align: center;
-            padding: 20px;
-            font-size: 12px;
-            color: #aaa;
-        }
+        footer { text-align: center; padding: 20px; font-size: 12px; color: #aaa; }
     </style>
 </head>
 <body>
@@ -274,7 +223,7 @@
                 </a>
             </div>
 
-            <div class="admin-trigger" onclick="openPinModal()">
+            <div class="admin-trigger" onclick="goToAdmin()">
                 <i class="fas fa-user-shield"></i>
                 <span style="font-weight: 600;">Menu Khusus Pengurus</span>
             </div>
@@ -288,18 +237,18 @@
             </div>
 
             <div class="admin-grid">
-                <a href="https://script.google.com/macros/s/AKfycbylHDBkFPgjwp_06kuyXAq4N9Fs5Qc1-zjOUguqATELWC3V7uijR05tbRvJomCkjWosPA/exec" class="btn-admin btn-b1" target="_blank">
+                <button class="btn-admin btn-b1" onclick="openPinModal('b1')">
                     <i class="fas fa-user-edit"></i>
                     <span>Input Data Bendahara 1 (Bpk Roni)</span>
-                </a>
-                <a href="https://script.google.com/macros/s/AKfycbznJXao3iX_MoxlrVKUdRB7Olr2yvft1QxHdp2TaUIhUFGfTGT1DI8zlwTj7D0Fe0kk-g/exec" class="btn-admin btn-b2" target="_blank">
+                </button>
+                <button class="btn-admin btn-b2" onclick="openPinModal('b2')">
                     <i class="fas fa-user-check"></i>
                     <span>Validasi Bendahara 2 (Bpk Bambang)</span>
-                </a>
-                <a href="https://script.google.com/macros/s/AKfycbxtWr2pgPPY7OlZmH2NFGyfk2dIYswB5DpQZzS7oo0LbJ5BZTVth3acMAuk_L0V6DYQug/exec" class="btn-admin btn-dash" target="_blank">
+                </button>
+                <button class="btn-admin btn-dash" onclick="openPinModal('admin')">
                     <i class="fas fa-chart-line"></i>
                     <span>Admin Dashboard</span>
-                </a>
+                </button>
             </div>
 
             <a href="#" class="btn-back" onclick="goHome()">
@@ -314,8 +263,8 @@
 
     <div class="modal-overlay" id="pinModal">
         <div class="modal-content">
-            <h4 style="color: var(--primary-color);">Keamanan Pengurus</h4>
-            <p style="font-size: 12px; color: #888;">Masukkan 6 digit PIN akses</p>
+            <h4 id="modal-title" style="color: var(--primary-color);">Verifikasi Akses</h4>
+            <p style="font-size: 12px; color: #888;">Masukkan 6 digit PIN Anda</p>
             
             <div id="error-msg" class="error-msg">PIN salah! Silakan coba lagi.</div>
 
@@ -343,12 +292,45 @@
     </div>
 
     <script>
-        const PIN_BENAR = "784512";
-        let inputPin = "";
+        // Konfigurasi PIN dan Link
+        const CONFIG = {
+            'b1': {
+                pin: "784512",
+                url: "https://script.google.com/macros/s/AKfycbylHDBkFPgjwp_06kuyXAq4N9Fs5Qc1-zjOUguqATELWC3V7uijR05tbRvJomCkjWosPA/exec",
+                title: "Akses Bendahara 1"
+            },
+            'b2': {
+                pin: "748596",
+                url: "https://script.google.com/macros/s/AKfycbznJXao3iX_MoxlrVKUdRB7Olr2yvft1QxHdp2TaUIhUFGfTGT1DI8zlwTj7D0Fe0kk-g/exec",
+                title: "Akses Bendahara 2"
+            },
+            'admin': {
+                pin: "142536",
+                url: "https://script.google.com/macros/s/AKfycbxtWr2pgPPY7OlZmH2NFGyfk2dIYswB5DpQZzS7oo0LbJ5BZTVth3acMAuk_L0V6DYQug/exec",
+                title: "Akses Admin Dashboard"
+            }
+        };
 
-        function openPinModal() {
+        let inputPin = "";
+        let currentTarget = "";
+
+        function goToAdmin() {
+            document.getElementById('main-page').style.display = 'none';
+            document.getElementById('admin-page').style.display = 'block';
+            window.scrollTo(0,0);
+        }
+
+        function goHome() {
+            document.getElementById('admin-page').style.display = 'none';
+            document.getElementById('main-page').style.display = 'block';
+        }
+
+        function openPinModal(target) {
+            currentTarget = target;
             inputPin = "";
+            document.getElementById('modal-title').innerText = CONFIG[target].title;
             document.getElementById('pinModal').style.display = 'flex';
+            document.getElementById('error-msg').style.display = 'none';
             updateDots();
         }
 
@@ -365,7 +347,6 @@
         }
 
         function clearPin() { inputPin = ""; updateDots(); }
-        
         function backspace() { inputPin = inputPin.slice(0, -1); updateDots(); }
 
         function updateDots() {
@@ -376,11 +357,11 @@
         }
 
         function verifyPin() {
-            if(inputPin === PIN_BENAR) {
+            const targetConfig = CONFIG[currentTarget];
+            if(inputPin === targetConfig.pin) {
+                window.open(targetConfig.url, '_blank');
                 closeModal();
-                document.getElementById('main-page').style.display = 'none';
-                document.getElementById('admin-page').style.display = 'block';
-                window.scrollTo(0,0);
+                inputPin = "";
             } else {
                 document.getElementById('error-msg').style.display = 'block';
                 inputPin = "";
@@ -391,9 +372,10 @@
             }
         }
 
-        function goHome() {
-            document.getElementById('admin-page').style.display = 'none';
-            document.getElementById('main-page').style.display = 'block';
+        // Tutup modal jika klik di luar box
+        window.onclick = function(event) {
+            const modal = document.getElementById('pinModal');
+            if (event.target == modal) closeModal();
         }
     </script>
 </body>
