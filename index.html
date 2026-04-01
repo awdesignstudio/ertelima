@@ -9,194 +9,203 @@
     
     <style>
         :root {
-            --primary-color: #0d47a1; /* Biru Tua Profesional */
-            --secondary-color: #2e7d32; /* Hijau Segar */
+            --primary-color: #0d47a1;
+            --secondary-color: #2e7d32;
+            --accent-color: #fb8c00;
             --bg-color: #f4f7f9;
             --text-color: #333;
             --white: #ffffff;
             --danger: #d32f2f;
         }
 
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
 
         body {
             font-family: 'Poppins', sans-serif;
             background-color: var(--bg-color);
             color: var(--text-color);
             line-height: 1.6;
-            padding-bottom: 50px;
         }
 
+        /* --- HEADER --- */
         header {
             background: linear-gradient(135deg, var(--primary-color), #1976d2);
             color: var(--white);
-            padding: 30px 20px;
+            padding: 40px 20px;
             text-align: center;
-            border-bottom-right-radius: 30px;
-            border-bottom-left-radius: 30px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-        }
-
-        header h1 {
-            font-size: 24px;
-            font-weight: 700;
-            margin-bottom: 5px;
-        }
-
-        header p {
-            font-size: 16px;
-            opacity: 0.9;
+            border-bottom-right-radius: 40px;
+            border-bottom-left-radius: 40px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
         }
 
         .container {
-            max-width: 800px;
-            margin: 20px auto;
-            padding: 0 15px;
+            max-width: 600px;
+            margin: -30px auto 50px;
+            padding: 0 20px;
         }
 
-        .grid-menu {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 20px;
-            margin-top: 20px;
-        }
-
-        /* Card Style */
-        .card {
-            background: var(--white);
-            border-radius: 20px;
-            padding: 25px;
-            display: flex;
-            align-items: center;
+        /* --- HERO SECTION --- */
+        .hero-card {
+            background: linear-gradient(135deg, #43a047, #2e7d32);
+            border-radius: 25px;
+            padding: 30px;
+            color: white;
             text-decoration: none;
-            color: var(--text-color);
-            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
-            transition: transform 0.2s, box-shadow 0.2s;
-            border: 1px solid #e0e0e0;
-        }
-
-        .card:active {
-            transform: scale(0.98);
-            background-color: #f0f0f0;
-        }
-
-        .icon-box {
-            width: 70px;
-            height: 70px;
-            background-color: #e3f2fd;
-            border-radius: 15px;
             display: flex;
-            justify-content: center;
             align-items: center;
-            margin-right: 20px;
+            justify-content: space-between;
+            box-shadow: 0 10px 20px rgba(46, 125, 50, 0.3);
+            margin-bottom: 25px;
+            transition: transform 0.2s;
+            position: relative;
+            overflow: hidden;
         }
 
-        .icon-box i {
-            font-size: 30px;
-            color: var(--primary-color);
+        .hero-card:active { transform: scale(0.97); }
+
+        .hero-text h2 { font-size: 20px; font-weight: 700; margin-bottom: 5px; }
+        .hero-text p { font-size: 14px; opacity: 0.9; }
+
+        .hero-icon {
+            font-size: 50px;
+            opacity: 0.3;
+            position: absolute;
+            right: -10px;
+            bottom: -10px;
         }
 
-        .info-box h2 {
-            font-size: 18px;
-            font-weight: 600;
-            color: var(--primary-color);
-        }
-
-        .info-box p {
-            font-size: 14px;
-            color: #666;
-        }
-
-        /* Khusus Modul Bendahara */
-        .bendahara-section {
-            background: #fff;
-            border-radius: 20px;
-            padding: 20px;
-            margin-top: 10px;
-            border: 2px dashed #cbd5e0;
-        }
-
-        .bendahara-title {
+        .btn-pay {
+            background: white;
+            color: var(--secondary-color);
+            padding: 8px 15px;
+            border-radius: 10px;
             font-weight: 700;
-            text-align: center;
-            margin-bottom: 15px;
-            color: var(--danger);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 10px;
+            font-size: 13px;
+            margin-top: 10px;
+            display: inline-block;
         }
 
-        .btn-group {
+        /* --- GRID MENU --- */
+        .grid-menu {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 15px;
+            margin-bottom: 25px;
         }
 
-        .btn-bendahara {
-            padding: 15px;
+        .card-small {
+            background: white;
+            border-radius: 20px;
+            padding: 20px;
             text-align: center;
-            border-radius: 12px;
+            text-decoration: none;
+            color: var(--text-color);
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            border: 1px solid #eee;
+            transition: 0.2s;
+        }
+
+        .card-small:active { transform: scale(0.95); background: #f0f0f0; }
+
+        .card-small i {
+            font-size: 28px;
+            color: var(--primary-color);
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        .card-small span { font-size: 14px; font-weight: 600; }
+
+        /* --- ADMIN SECTION BUTTON --- */
+        .admin-trigger {
+            background: white;
+            border-radius: 20px;
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            cursor: pointer;
+            border: 2px dashed #cbd5e0;
+            color: #666;
+            transition: 0.2s;
+        }
+
+        .admin-trigger i { color: #666; font-size: 20px; }
+
+        /* --- PAGE PENGURUS --- */
+        #admin-page { display: none; }
+        
+        .admin-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .admin-header h2 { color: var(--primary-color); }
+
+        .admin-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 15px;
+        }
+
+        .btn-admin {
+            padding: 20px;
+            border-radius: 15px;
+            color: white;
             text-decoration: none;
             font-weight: 600;
-            color: white;
-            font-size: 15px;
-            cursor: pointer;
-            border: none;
-            display: block;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
         }
 
         .btn-b1 { background-color: #fb8c00; }
         .btn-b2 { background-color: #f4511e; }
+        .btn-dash { background-color: #0d47a1; }
+        
+        .btn-back {
+            margin-top: 30px;
+            text-align: center;
+            display: block;
+            color: #888;
+            text-decoration: none;
+            font-size: 14px;
+        }
 
-        /* --- MODAL PIN STYLES --- */
+        /* --- MODAL PIN --- */
         .modal-overlay {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.7);
-            display: none; /* Hidden by default */
+            background: rgba(0,0,0,0.8);
+            display: none;
             justify-content: center;
             align-items: center;
             z-index: 1000;
-            backdrop-filter: blur(5px);
+            backdrop-filter: blur(8px);
         }
 
         .modal-content {
-            background: var(--white);
+            background: white;
             width: 90%;
             max-width: 320px;
             padding: 25px;
-            border-radius: 25px;
+            border-radius: 30px;
             text-align: center;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
-            animation: slideUp 0.3s ease-out;
-        }
-
-        @keyframes slideUp {
-            from { transform: translateY(50px); opacity: 0; }
-            to { transform: translateY(0); opacity: 1; }
         }
 
         .pin-display {
-            width: 100%;
-            height: 50px;
-            background: #eee;
-            border-radius: 10px;
-            margin-bottom: 20px;
             display: flex;
             justify-content: center;
-            align-items: center;
             gap: 10px;
+            margin: 20px 0;
         }
 
         .pin-dot {
             width: 15px;
             height: 15px;
-            background: #ccc;
+            background: #ddd;
             border-radius: 50%;
         }
 
@@ -208,46 +217,28 @@
         .keypad {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 12px;
+            gap: 10px;
         }
 
         .key {
             background: #f8f9fa;
-            border: 1px solid #ddd;
+            border: 1px solid #eee;
             padding: 15px;
             font-size: 20px;
-            font-weight: 600;
+            font-weight: 700;
             border-radius: 15px;
             cursor: pointer;
-            transition: 0.1s;
-            color: var(--primary-color);
         }
 
-        .key:active {
-            background: #e3f2fd;
-            transform: scale(0.9);
-        }
+        .key:active { background: #e3f2fd; }
 
-        .key.clear { color: var(--danger); }
-        .key.backspace { color: #666; }
-
-        .error-msg {
-            color: var(--danger);
-            font-size: 13px;
-            margin-bottom: 10px;
-            display: none;
-        }
+        .error-msg { color: var(--danger); font-size: 12px; margin-bottom: 10px; display: none; }
 
         footer {
             text-align: center;
-            margin-top: 40px;
-            font-size: 13px;
-            color: #888;
-        }
-
-        @media (min-width: 600px) {
-            .grid-menu { grid-template-columns: 1fr 1fr; }
-            header h1 { font-size: 28px; }
+            padding: 20px;
+            font-size: 12px;
+            color: #aaa;
         }
     </style>
 </head>
@@ -255,56 +246,65 @@
 
     <header>
         <i class="fas fa-city" style="font-size: 40px; margin-bottom: 15px;"></i>
-        <h1>Sistem Informasi Warga</h1>
-        <p>RT 05 Permata Harmoni</p>
+        <h1 style="font-size: 22px;">Sistem Informasi Warga</h1>
+        <p style="font-size: 14px; opacity: 0.8;">RT 05 Permata Harmoni</p>
     </header>
 
     <div class="container">
         
-        <div class="grid-menu">
-            <a href="https://script.google.com/macros/s/AKfycbyKkn3WuDkeW3fAFDyLBvaQuR2mxBb5uxrAW6O1XZqXE4cCoeSA0mPvQdtdVfaSdSLV/exec" class="card" target="_blank">
-                <div class="icon-box">
-                    <i class="fas fa-map-marked-alt"></i>
-                </div>
-                <div class="info-box">
-                    <h2>Denah & Monitoring</h2>
-                    <p>Pantau lokasi & data warga</p>
-                </div>
-            </a>
-
-            <a href="https://script.google.com/macros/s/AKfycbwbz-vQqz5OrxFp-1qiiJgRUyKTA9lq23a18Xl43SB3Zcc8bYXYth3sNCfNUopEsnAk/exec" class="card" target="_blank">
-                <div class="icon-box" style="background-color: #e8f5e9;">
-                    <i class="fas fa-wallet" style="color: #2e7d32;"></i>
-                </div>
-                <div class="info-box">
+        <div id="main-page">
+            <a href="https://script.google.com/macros/s/AKfycbwbz-vQqz5OrxFp-1qiiJgRUyKTA9lq23a18Xl43SB3Zcc8bYXYth3sNCfNUopEsnAk/exec" class="hero-card" target="_blank">
+                <div class="hero-text">
+                    <p>Halo Warga RT 05,</p>
                     <h2>Pembayaran Iuran</h2>
-                    <p>Bayar iuran bulanan warga</p>
+                    <p>Pastikan iuran bulan ini sudah terbayar</p>
+                    <div class="btn-pay">Bayar Sekarang <i class="fas fa-arrow-right"></i></div>
                 </div>
+                <i class="fas fa-wallet hero-icon"></i>
             </a>
 
-            <a href="https://script.google.com/macros/s/AKfycbxkb6X31X_jLzffZQ0glJWZandvgJ1JyHXu0vrrGNjf6H9gFWzyf8dc_hTRM0XAdHYgUg/exec" class="card" target="_blank">
-                <div class="icon-box" style="background-color: #fff3e0;">
+            <div class="grid-menu">
+                <a href="https://script.google.com/macros/s/AKfycbyKkn3WuDkeW3fAFDyLBvaQuR2mxBb5uxrAW6O1XZqXE4cCoeSA0mPvQdtdVfaSdSLV/exec" class="card-small" target="_blank">
+                    <i class="fas fa-map-marked-alt"></i>
+                    <span>Denah & Monitoring</span>
+                </a>
+                <a href="https://script.google.com/macros/s/AKfycbxkb6X31X_jLzffZQ0glJWZandvgJ1JyHXu0vrrGNjf6H9gFWzyf8dc_hTRM0XAdHYgUg/exec" class="card-small" target="_blank">
                     <i class="fas fa-file-invoice-dollar" style="color: #ef6c00;"></i>
-                </div>
-                <div class="info-box">
-                    <h2>Laporan Kas RT</h2>
-                    <p>Cek transparansi keuangan</p>
-                </div>
-            </a>
+                    <span>Laporan Kas RT</span>
+                </a>
+            </div>
+
+            <div class="admin-trigger" onclick="openPinModal()">
+                <i class="fas fa-user-shield"></i>
+                <span style="font-weight: 600;">Menu Khusus Pengurus</span>
+            </div>
         </div>
 
-        <div class="bendahara-section">
-            <div class="bendahara-title">
-                <i class="fas fa-user-shield"></i> Menu Khusus Bendahara
+        <div id="admin-page">
+            <div class="admin-header">
+                <i class="fas fa-unlock-alt" style="font-size: 40px; color: var(--primary-color); margin-bottom: 10px;"></i>
+                <h2>Dashboard Pengurus</h2>
+                <p style="font-size: 13px; color: #666;">Akses manajemen data RT 05</p>
             </div>
-            <div class="btn-group">
-                <button onclick="openPinModal('https://script.google.com/macros/s/AKfycbylHDBkFPgjwp_06kuyXAq4N9Fs5Qc1-zjOUguqATELWC3V7uijR05tbRvJomCkjWosPA/exec')" class="btn-bendahara btn-b1">
-                    <i class="fas fa-user-edit"></i><br>Bendahara 1
-                </button>
-                <button onclick="openPinModal('https://script.google.com/macros/s/AKfycbznJXao3iX_MoxlrVKUdRB7Olr2yvft1QxHdp2TaUIhUFGfTGT1DI8zlwTj7D0Fe0kk-g/exec')" class="btn-bendahara btn-b2">
-                    <i class="fas fa-user-check"></i><br>Bendahara 2
-                </button>
+
+            <div class="admin-grid">
+                <a href="https://script.google.com/macros/s/AKfycbylHDBkFPgjwp_06kuyXAq4N9Fs5Qc1-zjOUguqATELWC3V7uijR05tbRvJomCkjWosPA/exec" class="btn-admin btn-b1" target="_blank">
+                    <i class="fas fa-user-edit"></i>
+                    <span>Input Data Bendahara 1</span>
+                </a>
+                <a href="https://script.google.com/macros/s/AKfycbznJXao3iX_MoxlrVKUdRB7Olr2yvft1QxHdp2TaUIhUFGfTGT1DI8zlwTj7D0Fe0kk-g/exec" class="btn-admin btn-b2" target="_blank">
+                    <i class="fas fa-user-check"></i>
+                    <span>Validasi Bendahara 2</span>
+                </a>
+                <a href="https://script.google.com/macros/s/AKfycbxtWr2pgPPY7OlZmH2NFGyfk2dIYswB5DpQZzS7oo0LbJ5BZTVth3acMAuk_L0V6DYQug/exec" class="btn-admin btn-dash" target="_blank">
+                    <i class="fas fa-chart-line"></i>
+                    <span>Admin Dashboard</span>
+                </a>
             </div>
+
+            <a href="#" class="btn-back" onclick="goHome()">
+                <i class="fas fa-chevron-left"></i> Kembali ke Beranda
+            </a>
         </div>
 
         <footer>
@@ -314,18 +314,14 @@
 
     <div class="modal-overlay" id="pinModal">
         <div class="modal-content">
-            <h3 style="margin-bottom: 10px; color: var(--primary-color);">Verifikasi PIN</h3>
-            <p style="font-size: 13px; color: #666; margin-bottom: 15px;">Silakan masukkan kode akses Bendahara</p>
+            <h4 style="color: var(--primary-color);">Keamanan Pengurus</h4>
+            <p style="font-size: 12px; color: #888;">Masukkan 6 digit PIN akses</p>
             
-            <div id="error-msg" class="error-msg">PIN Salah, silakan coba lagi.</div>
+            <div id="error-msg" class="error-msg">PIN salah! Silakan coba lagi.</div>
 
-            <div class="pin-display" id="pinDisplay">
-                <div class="pin-dot"></div>
-                <div class="pin-dot"></div>
-                <div class="pin-dot"></div>
-                <div class="pin-dot"></div>
-                <div class="pin-dot"></div>
-                <div class="pin-dot"></div>
+            <div class="pin-display">
+                <div class="pin-dot"></div><div class="pin-dot"></div><div class="pin-dot"></div>
+                <div class="pin-dot"></div><div class="pin-dot"></div><div class="pin-dot"></div>
             </div>
 
             <div class="keypad">
@@ -338,25 +334,21 @@
                 <button class="key" onclick="pressKey('7')">7</button>
                 <button class="key" onclick="pressKey('8')">8</button>
                 <button class="key" onclick="pressKey('9')">9</button>
-                <button class="key clear" onclick="clearPin()">C</button>
+                <button class="key" onclick="clearPin()" style="color:red">C</button>
                 <button class="key" onclick="pressKey('0')">0</button>
-                <button class="key backspace" onclick="backspace()"><i class="fas fa-backspace"></i></button>
+                <button class="key" onclick="backspace()"><i class="fas fa-backspace"></i></button>
             </div>
-
-            <button onclick="closeModal()" style="margin-top: 20px; background: none; border: none; color: #999; cursor: pointer; text-decoration: underline;">Batal</button>
+            <button onclick="closeModal()" style="margin-top: 15px; border:none; background:none; color:#bbb; font-size:12px;">Batal</button>
         </div>
     </div>
 
     <script>
-        const CORRECT_PIN = "784512";
-        let currentPin = "";
-        let targetUrl = "";
+        const PIN_BENAR = "784512";
+        let inputPin = "";
 
-        function openPinModal(url) {
-            targetUrl = url;
-            currentPin = "";
+        function openPinModal() {
+            inputPin = "";
             document.getElementById('pinModal').style.display = 'flex';
-            document.getElementById('error-msg').style.display = 'none';
             updateDots();
         }
 
@@ -364,67 +356,45 @@
             document.getElementById('pinModal').style.display = 'none';
         }
 
-        function pressKey(num) {
-            if (currentPin.length < 6) {
-                currentPin += num;
+        function pressKey(n) {
+            if(inputPin.length < 6) {
+                inputPin += n;
                 updateDots();
-                
-                if (currentPin.length === 6) {
-                    checkPin();
-                }
+                if(inputPin.length === 6) verifyPin();
             }
         }
 
-        function clearPin() {
-            currentPin = "";
-            updateDots();
-            document.getElementById('error-msg').style.display = 'none';
-        }
-
-        function backspace() {
-            currentPin = currentPin.slice(0, -1);
-            updateDots();
-            document.getElementById('error-msg').style.display = 'none';
-        }
+        function clearPin() { inputPin = ""; updateDots(); }
+        
+        function backspace() { inputPin = inputPin.slice(0, -1); updateDots(); }
 
         function updateDots() {
             const dots = document.querySelectorAll('.pin-dot');
-            dots.forEach((dot, index) => {
-                if (index < currentPin.length) {
-                    dot.classList.add('active');
-                } else {
-                    dot.classList.remove('active');
-                }
+            dots.forEach((dot, i) => {
+                dot.classList.toggle('active', i < inputPin.length);
             });
         }
 
-        function checkPin() {
-            if (currentPin === CORRECT_PIN) {
-                // PIN Benar
-                window.open(targetUrl, '_blank');
+        function verifyPin() {
+            if(inputPin === PIN_BENAR) {
                 closeModal();
+                document.getElementById('main-page').style.display = 'none';
+                document.getElementById('admin-page').style.display = 'block';
+                window.scrollTo(0,0);
             } else {
-                // PIN Salah
                 document.getElementById('error-msg').style.display = 'block';
-                // Getaran efek salah jika di mobile
-                if (navigator.vibrate) navigator.vibrate(200);
-                
-                // Reset PIN setelah jeda singkat
+                inputPin = "";
                 setTimeout(() => {
-                    currentPin = "";
                     updateDots();
-                }, 500);
+                    document.getElementById('error-msg').style.display = 'none';
+                }, 1000);
             }
         }
 
-        // Menutup modal jika klik di luar area modal
-        window.onclick = function(event) {
-            const modal = document.getElementById('pinModal');
-            if (event.target == modal) {
-                closeModal();
-            }
+        function goHome() {
+            document.getElementById('admin-page').style.display = 'none';
+            document.getElementById('main-page').style.display = 'block';
         }
     </script>
-
 </body>
 </html>
