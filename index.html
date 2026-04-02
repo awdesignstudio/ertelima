@@ -46,9 +46,8 @@
             box-shadow: 0 4px 15px rgba(0,0,0,0.1);
         }
 
-        /* --- STYLING TOMBOL INSTAL --- */
         #install-pwa {
-            display: none; /* Hanya muncul jika didukung browser */
+            display: none;
             margin-top: 15px;
             background: var(--accent-color);
             color: white;
@@ -71,7 +70,6 @@
             position: relative;
         }
 
-        /* --- HERO SECTION --- */
         .hero-card {
             background: linear-gradient(135deg, #43a047, #2e7d32);
             border-radius: 25px;
@@ -115,7 +113,6 @@
             display: inline-block;
         }
 
-        /* --- ANNOUNCEMENT SECTION --- */
         .announcement-board {
             background: white;
             border-radius: 25px;
@@ -153,7 +150,6 @@
         .announcement-item b { color: #e65100; display: block; margin-bottom: 2px; }
         .announcement-item a { color: var(--primary-color); font-weight: 600; text-decoration: underline; cursor: pointer; }
 
-        /* --- GRID MENU --- */
         .grid-menu {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -194,7 +190,6 @@
             cursor: pointer;
         }
 
-        /* --- IFRAME VIEWER & LOADER --- */
         #app-viewer {
             display: none;
             position: fixed;
@@ -259,7 +254,6 @@
             border: none;
         }
 
-        /* TOMBOL RAHASIA PENGURUS */
         .secret-trigger {
             position: absolute;
             bottom: -35px;
@@ -273,7 +267,6 @@
         
         .secret-trigger:hover { color: #aaa; }
 
-        /* --- PAGE PENGURUS & SUB-PAGES --- */
         #admin-page, #presensi-sub-page { display: none; }
         .admin-header { text-align: center; margin-bottom: 30px; }
         .admin-header h2 { color: var(--primary-color); }
@@ -313,7 +306,6 @@
             cursor: pointer;
         }
 
-        /* --- MODAL PIN --- */
         .modal-overlay {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
@@ -504,6 +496,15 @@
     </div>
 
     <script>
+        // PINDAHKAN FUNGSI INI KE PALING ATAS AGAR LANGSUNG DIKENAL BROWSER
+        function hideLoader() {
+            const loader = document.getElementById('app-loader');
+            if (loader) {
+                loader.style.display = 'none';
+                console.log("Loader disembunyikan");
+            }
+        }
+
         const DATA_PENGUMUMAN = [
             {
                 judul: "📢 Sistem Informasi Warga: Modern, Rapi, & Transparan!",
@@ -526,7 +527,6 @@
         let inputPin = "";
         let currentTarget = "";
 
-        // REGISTRASI SERVICE WORKER (WAJIB UNTUK PWA)
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', () => {
                 navigator.serviceWorker.register('sw.js')
@@ -541,14 +541,6 @@
             document.getElementById('iframe-app').src = url;
             document.getElementById('app-viewer').style.display = 'flex';
             document.body.style.overflow = 'hidden';
-        }
-
-        // FUNGSI UNTUK MENYEMBUNYIKAN LOADER (YANG SEBELUMNYA KURANG)
-        function hideLoader() {
-            const loader = document.getElementById('app-loader');
-            if (loader) {
-                loader.style.display = 'none';
-            }
         }
 
         function closeApp() {
@@ -645,7 +637,6 @@
             if (event.target == modal) closeModal();
         }
 
-        /* --- LOGIKA INSTAL PWA --- */
         let deferredPrompt;
         const btnInstall = document.getElementById('install-pwa');
 
