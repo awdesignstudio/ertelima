@@ -526,6 +526,15 @@
         let inputPin = "";
         let currentTarget = "";
 
+        // REGISTRASI SERVICE WORKER (WAJIB UNTUK PWA)
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('sw.js')
+                .then(reg => console.log('Service Worker terdaftar!', reg))
+                .catch(err => console.log('Gagal daftar SW', err));
+            });
+        }
+
         function openInPortal(url, title) {
             document.getElementById('viewer-title').innerText = title;
             document.getElementById('app-loader').style.display = 'flex'; 
@@ -534,8 +543,12 @@
             document.body.style.overflow = 'hidden';
         }
 
+        // FUNGSI UNTUK MENYEMBUNYIKAN LOADER (YANG SEBELUMNYA KURANG)
         function hideLoader() {
-            document.getElementById('app-loader').style.display = 'none'; 
+            const loader = document.getElementById('app-loader');
+            if (loader) {
+                loader.style.display = 'none';
+            }
         }
 
         function closeApp() {
@@ -644,13 +657,15 @@
 
         btnInstall.addEventListener('click', (e) => {
             btnInstall.style.display = 'none';
-            deferredPrompt.prompt();
-            deferredPrompt.userChoice.then((choiceResult) => {
-                if (choiceResult.outcome === 'accepted') {
-                    console.log('User accepted the install prompt');
-                }
-                deferredPrompt = null;
-            });
+            if (deferredPrompt) {
+                deferredPrompt.prompt();
+                deferredPrompt.userChoice.then((choiceResult) => {
+                    if (choiceResult.outcome === 'accepted') {
+                        console.log('User accepted the install prompt');
+                    }
+                    deferredPrompt = null;
+                });
+            }
         });
 
         window.addEventListener('appinstalled', (event) => {
