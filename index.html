@@ -84,6 +84,44 @@
             display: inline-block;
         }
 
+        /* --- ANNOUNCEMENT SECTION --- */
+        .announcement-board {
+            background: white;
+            border-radius: 25px;
+            padding: 20px;
+            margin-bottom: 25px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            border-left: 6px solid var(--accent-color);
+        }
+
+        .announcement-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 12px;
+            color: var(--accent-color);
+        }
+
+        .announcement-header i { font-size: 18px; }
+        .announcement-header h3 { font-size: 16px; font-weight: 700; }
+
+        .announcement-content {
+            font-size: 14px;
+            color: #555;
+        }
+
+        .announcement-item {
+            background: #fff9f0;
+            padding: 12px;
+            border-radius: 12px;
+            margin-bottom: 10px;
+            border: 1px solid #ffe0b2;
+        }
+
+        .announcement-item:last-child { margin-bottom: 0; }
+        .announcement-item b { color: #e65100; display: block; margin-bottom: 2px; }
+        .announcement-item a { color: var(--primary-color); font-weight: 600; text-decoration: underline; }
+
         /* --- GRID MENU --- */
         .grid-menu {
             display: grid;
@@ -215,6 +253,15 @@
                 <i class="fas fa-wallet hero-icon"></i>
             </a>
 
+            <div class="announcement-board">
+                <div class="announcement-header">
+                    <i class="fas fa-bullhorn"></i>
+                    <h3>Informasi & Pengumuman</h3>
+                </div>
+                <div id="announcement-list" class="announcement-content">
+                    </div>
+            </div>
+
             <div class="grid-menu">
                 <a href="https://script.google.com/macros/s/AKfycbyKkn3WuDkeW3fAFDyLBvaQuR2mxBb5uxrAW6O1XZqXE4cCoeSA0mPvQdtdVfaSdSLV/exec" class="card-small" target="_blank">
                     <i class="fas fa-map-marked-alt"></i>
@@ -299,6 +346,26 @@
     </div>
 
     <script>
+        /**
+         * --- AREA SETTING PENGUMUMAN (MUDAH DIUBAH) ---
+         * Anda bisa menambah, menghapus, atau mengubah teks di bawah ini.
+         * Gunakan format: { judul: "TEXT", isi: "TEXT" }
+         */
+        const DATA_PENGUMUMAN = [
+            {
+                judul: "📢 Rapat Bulanan Warga",
+                isi: "Sabtu, 11 April 2026. Jam 20.00 WIB di Balai Warga. Mohon kehadirannya."
+            },
+            {
+                judul: "📝 Pemutakhiran Data Warga",
+                isi: "Harap mengisi formulir pendataan terbaru melalui link berikut: <a href='#'>Klik Di Sini</a>"
+            },
+            {
+                judul: "🧹 Kerja Bakti Lingkungan",
+                isi: "Minggu pagi jam 07.00 WIB. Titik kumpul di taman blok A."
+            }
+        ];
+
         // Konfigurasi PIN dan Link
         const CONFIG = {
             'b1': {
@@ -321,6 +388,24 @@
                 url: "https://script.google.com/macros/s/AKfycbxtWr2pgPPY7OlZmH2NFGyfk2dIYswB5DpQZzS7oo0LbJ5BZTVth3acMAuk_L0V6DYQug/exec",
                 title: "Akses Admin Dashboard"
             }
+        };
+
+        // Fungsi Load Pengumuman
+        function loadAnnouncements() {
+            const container = document.getElementById('announcement-list');
+            container.innerHTML = ""; // Bersihkan isi lama
+
+            DATA_PENGUMUMAN.forEach(item => {
+                const div = document.createElement('div');
+                div.className = 'announcement-item';
+                div.innerHTML = `<b>${item.judul}</b><span>${item.isi}</span>`;
+                container.appendChild(div);
+            });
+        }
+
+        // Jalankan saat halaman dibuka
+        window.onload = function() {
+            loadAnnouncements();
         };
 
         let inputPin = "";
