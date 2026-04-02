@@ -4,6 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Portal RT 05 Permata Harmoni</title>
+    
+    <link rel="icon" type="image/png" href="icons/icon-192.png">
+    <link rel="apple-touch-icon" href="icons/icon-192.png">
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#0d47a1">
+
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
@@ -39,6 +45,24 @@
             border-bottom-left-radius: 40px;
             box-shadow: 0 4px 15px rgba(0,0,0,0.1);
         }
+
+        /* --- STYLING TOMBOL INSTAL --- */
+        #install-pwa {
+            display: none; /* Hanya muncul jika didukung browser */
+            margin-top: 15px;
+            background: var(--accent-color);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 12px;
+            font-weight: 700;
+            font-family: 'Poppins', sans-serif;
+            font-size: 13px;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+            transition: 0.3s;
+        }
+        #install-pwa:active { transform: scale(0.95); }
 
         .container {
             max-width: 600px;
@@ -192,7 +216,7 @@
 
         #app-loader {
             position: absolute;
-            top: 65px; /* Sesuaikan dengan tinggi viewer-header */
+            top: 65px; 
             left: 0;
             width: 100%;
             height: calc(100% - 65px);
@@ -343,6 +367,8 @@
         <i class="fas fa-city" style="font-size: 40px; margin-bottom: 15px;"></i>
         <h1 style="font-size: 22px;">Sistem Informasi Warga</h1>
         <p style="font-size: 14px; opacity: 0.8;">RT 05 Permata Harmoni</p>
+        
+        <button id="install-pwa"><i class="fas fa-mobile-alt"></i> Instal Aplikasi Portal</button>
     </header>
 
     <div class="container" id="main-container">
@@ -502,14 +528,14 @@
 
         function openInPortal(url, title) {
             document.getElementById('viewer-title').innerText = title;
-            document.getElementById('app-loader').style.display = 'flex'; // Tampilkan loader
+            document.getElementById('app-loader').style.display = 'flex'; 
             document.getElementById('iframe-app').src = url;
             document.getElementById('app-viewer').style.display = 'flex';
             document.body.style.overflow = 'hidden';
         }
 
         function hideLoader() {
-            document.getElementById('app-loader').style.display = 'none'; // Sembunyikan loader setelah iframe load
+            document.getElementById('app-loader').style.display = 'none'; 
         }
 
         function closeApp() {
@@ -605,6 +631,32 @@
             const modal = document.getElementById('pinModal');
             if (event.target == modal) closeModal();
         }
+
+        /* --- LOGIKA INSTAL PWA --- */
+        let deferredPrompt;
+        const btnInstall = document.getElementById('install-pwa');
+
+        window.addEventListener('beforeinstallprompt', (e) => {
+            e.preventDefault();
+            deferredPrompt = e;
+            btnInstall.style.display = 'inline-block';
+        });
+
+        btnInstall.addEventListener('click', (e) => {
+            btnInstall.style.display = 'none';
+            deferredPrompt.prompt();
+            deferredPrompt.userChoice.then((choiceResult) => {
+                if (choiceResult.outcome === 'accepted') {
+                    console.log('User accepted the install prompt');
+                }
+                deferredPrompt = null;
+            });
+        });
+
+        window.addEventListener('appinstalled', (event) => {
+            console.log('App installed');
+            btnInstall.style.display = 'none';
+        });
     </script>
 </body>
 </html>
