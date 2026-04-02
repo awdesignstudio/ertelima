@@ -18,7 +18,7 @@
             --danger: #d32f2f;
             --db-color: #00796b;
             --presensi-color: #6a1b9a;
-            --doorprize-color: #e65100;
+            --doorprize-color: #f57c00; /* Warna Oranye Doorprize */
         }
 
         * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -171,6 +171,24 @@
             cursor: pointer;
         }
 
+        /* Styling Tombol Doorprize Warga */
+        .btn-doorprize-main {
+            grid-column: span 2;
+            background: linear-gradient(135deg, var(--doorprize-color), #ef6c00);
+            color: white;
+            padding: 18px;
+            border-radius: 20px;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            font-weight: 600;
+            box-shadow: 0 4px 12px rgba(239, 108, 0, 0.2);
+            cursor: pointer;
+            margin-top: 5px;
+        }
+
         /* --- IFRAME VIEWER --- */
         #app-viewer {
             display: none;
@@ -249,7 +267,7 @@
         .btn-dash { background-color: #0d47a1; }
         .btn-db { background-color: var(--db-color); }
         .btn-pr { background-color: var(--presensi-color); }
-        .btn-door { background-color: var(--doorprize-color); }
+        .btn-doorprize-admin { background-color: var(--doorprize-color); }
         
         .btn-back {
             margin-top: 30px;
@@ -341,15 +359,13 @@
                     <i class="fas fa-file-invoice-dollar" style="color: #ef6c00;"></i>
                     <span>Laporan Kas RT</span>
                 </div>
-                <div onclick="openInPortal('https://script.google.com/macros/s/AKfycbzFLqiQGvwvOZORUoaeSVcyLGIkLAE_wKhbcf8afhZ9qrA2Y5sPiOFHFdoC9uSRd1oT/exec', 'Undian Doorprize')" class="card-small">
-                    <i class="fas fa-gift" style="color: #e65100;"></i>
-                    <span>Undian Doorprize</span>
-                </div>
-                <div onclick="openInPortal('https://script.google.com/macros/s/AKfycbyKkn3WuDkeW3fAFDyLBvaQuR2mxBb5uxrAW6O1XZqXE4cCoeSA0mPvQdtdVfaSdSLV/exec', 'Denah & Monitoring')" class="card-small" style="visibility: hidden;">
-                    </div>
                 <div onclick="openInPortal('https://script.google.com/macros/s/AKfycbzGqfvfOPlsEp1SqLO6u38c4CiO3qn8BsaznC7KtKYptjKbykknsa33bNg9PtohvvxF/exec', 'Presensi Kegiatan')" class="btn-presensi-main">
                     <i class="fas fa-user-check"></i>
                     <span>Presensi Kehadiran Kegiatan</span>
+                </div>
+                <div onclick="openInPortal('https://script.google.com/macros/s/AKfycbzFLqiQGvwvOZORUoaeSVcyLGIkLAE_wKhbcf8afhZ9qrA2Y5sPiOFHFdoC9uSRd1oT/exec', 'Undian Doorprize')" class="btn-doorprize-main">
+                    <i class="fas fa-gift"></i>
+                    <span>Undian Doorprize Warga</span>
                 </div>
             </div>
         </div>
@@ -404,9 +420,9 @@
                     <i class="fas fa-user-cog"></i>
                     <span>Panel Admin Presensi</span>
                 </button>
-                <button class="btn-admin btn-door" onclick="openInPortal('https://script.google.com/macros/s/AKfycbzFLqiQGvwvOZORUoaeSVcyLGIkLAE_wKhbcf8afhZ9qrA2Y5sPiOFHFdoC9uSRd1oT/exec?mode=admin', 'Admin Undian Doorprize')">
+                <button class="btn-admin btn-doorprize-admin" onclick="openInPortal('https://script.google.com/macros/s/AKfycbzFLqiQGvwvOZORUoaeSVcyLGIkLAE_wKhbcf8afhZ9qrA2Y5sPiOFHFdoC9uSRd1oT/exec?mode=admin', 'Manajemen Doorprize')">
                     <i class="fas fa-gift"></i>
-                    <span>Setting Undian Doorprize</span>
+                    <span>Undian Doorprize (Admin)</span>
                 </button>
             </div>
             <div class="btn-back" onclick="goToAdminFromSub()">
