@@ -27,6 +27,7 @@
             background-color: var(--bg-color);
             color: var(--text-color);
             line-height: 1.6;
+            overflow-x: hidden;
         }
 
         header {
@@ -43,7 +44,7 @@
             max-width: 600px;
             margin: -30px auto 50px;
             padding: 0 20px;
-            position: relative; /* Penting untuk posisi tombol rahasia */
+            position: relative;
         }
 
         /* --- HERO SECTION --- */
@@ -61,6 +62,10 @@
             transition: transform 0.2s;
             position: relative;
             overflow: hidden;
+            cursor: pointer;
+            border: none;
+            width: 100%;
+            text-align: left;
         }
 
         .hero-card:active { transform: scale(0.97); }
@@ -122,7 +127,7 @@
 
         .announcement-item:last-child { margin-bottom: 0; }
         .announcement-item b { color: #e65100; display: block; margin-bottom: 2px; }
-        .announcement-item a { color: var(--primary-color); font-weight: 600; text-decoration: underline; }
+        .announcement-item a { color: var(--primary-color); font-weight: 600; text-decoration: underline; cursor: pointer; }
 
         /* --- GRID MENU --- */
         .grid-menu {
@@ -142,6 +147,7 @@
             box-shadow: 0 4px 6px rgba(0,0,0,0.05);
             border: 1px solid #eee;
             transition: 0.2s;
+            cursor: pointer;
         }
 
         .card-small:active { transform: scale(0.95); background: #f0f0f0; }
@@ -161,14 +167,50 @@
             gap: 12px;
             font-weight: 600;
             box-shadow: 0 4px 12px rgba(106, 27, 154, 0.2);
+            cursor: pointer;
         }
 
-        /* TOMBOL RAHASIA PENGURUS (DISAMARKAN) */
+        /* --- IFRAME VIEWER --- */
+        #app-viewer {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: white;
+            z-index: 2000;
+            flex-direction: column;
+        }
+
+        .viewer-header {
+            padding: 15px;
+            background: var(--white);
+            display: flex;
+            align-items: center;
+            border-bottom: 1px solid #eee;
+            gap: 15px;
+        }
+
+        .btn-close-viewer {
+            background: #f1f3f5;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 10px;
+            font-weight: 600;
+            cursor: pointer;
+            color: var(--text-color);
+        }
+
+        iframe {
+            flex: 1;
+            width: 100%;
+            border: none;
+        }
+
+        /* TOMBOL RAHASIA PENGURUS */
         .secret-trigger {
             position: absolute;
             bottom: -35px;
             right: 20px;
-            color: #ccd6dd; /* Warna sangat samar menyatu dengan background */
+            color: #ccd6dd;
             font-size: 14px;
             cursor: pointer;
             padding: 10px;
@@ -214,6 +256,7 @@
             color: #888;
             text-decoration: none;
             font-size: 14px;
+            cursor: pointer;
         }
 
         /* --- MODAL PIN --- */
@@ -224,7 +267,7 @@
             display: none;
             justify-content: center;
             align-items: center;
-            z-index: 1000;
+            z-index: 3000;
             backdrop-filter: blur(8px);
         }
 
@@ -252,16 +295,24 @@
 </head>
 <body>
 
-    <header>
+    <div id="app-viewer">
+        <div class="viewer-header">
+            <button class="btn-close-viewer" onclick="closeApp()"><i class="fas fa-arrow-left"></i> Kembali</button>
+            <span id="viewer-title" style="font-weight: 600; font-size: 14px;">Aplikasi</span>
+        </div>
+        <iframe id="iframe-app" src=""></iframe>
+    </div>
+
+    <header id="main-header">
         <i class="fas fa-city" style="font-size: 40px; margin-bottom: 15px;"></i>
         <h1 style="font-size: 22px;">Sistem Informasi Warga</h1>
         <p style="font-size: 14px; opacity: 0.8;">RT 05 Permata Harmoni</p>
     </header>
 
-    <div class="container">
+    <div class="container" id="main-container">
         
         <div id="main-page">
-            <a href="https://script.google.com/macros/s/AKfycbwbz-vQqz5OrxFp-1qiiJgRUyKTA9lq23a18Xl43SB3Zcc8bYXYth3sNCfNUopEsnAk/exec" class="hero-card" target="_blank">
+            <div onclick="openInPortal('https://script.google.com/macros/s/AKfycbwbz-vQqz5OrxFp-1qiiJgRUyKTA9lq23a18Xl43SB3Zcc8bYXYth3sNCfNUopEsnAk/exec', 'Pembayaran Iuran')" class="hero-card">
                 <div class="hero-text">
                     <p>Halo Warga RT 05,</p>
                     <h2>Pembayaran Iuran</h2>
@@ -269,7 +320,7 @@
                     <div class="btn-pay">Bayar Sekarang <i class="fas fa-arrow-right"></i></div>
                 </div>
                 <i class="fas fa-wallet hero-icon"></i>
-            </a>
+            </div>
 
             <div class="announcement-board">
                 <div class="announcement-header">
@@ -280,18 +331,18 @@
             </div>
 
             <div class="grid-menu">
-                <a href="https://script.google.com/macros/s/AKfycbyKkn3WuDkeW3fAFDyLBvaQuR2mxBb5uxrAW6O1XZqXE4cCoeSA0mPvQdtdVfaSdSLV/exec" class="card-small" target="_blank">
+                <div onclick="openInPortal('https://script.google.com/macros/s/AKfycbyKkn3WuDkeW3fAFDyLBvaQuR2mxBb5uxrAW6O1XZqXE4cCoeSA0mPvQdtdVfaSdSLV/exec', 'Denah & Monitoring')" class="card-small">
                     <i class="fas fa-map-marked-alt"></i>
                     <span>Denah & Monitoring</span>
-                </a>
-                <a href="https://script.google.com/macros/s/AKfycbxkb6X31X_jLzffZQ0glJWZandvgJ1JyHXu0vrrGNjf6H9gFWzyf8dc_hTRM0XAdHYgUg/exec" class="card-small" target="_blank">
+                </div>
+                <div onclick="openInPortal('https://script.google.com/macros/s/AKfycbxkb6X31X_jLzffZQ0glJWZandvgJ1JyHXu0vrrGNjf6H9gFWzyf8dc_hTRM0XAdHYgUg/exec', 'Laporan Kas RT')" class="card-small">
                     <i class="fas fa-file-invoice-dollar" style="color: #ef6c00;"></i>
                     <span>Laporan Kas RT</span>
-                </a>
-                <a href="https://script.google.com/macros/s/AKfycbzGqfvfOPlsEp1SqLO6u38c4CiO3qn8BsaznC7KtKYptjKbykknsa33bNg9PtohvvxF/exec" class="btn-presensi-main" target="_blank">
+                </div>
+                <div onclick="openInPortal('https://script.google.com/macros/s/AKfycbzGqfvfOPlsEp1SqLO6u38c4CiO3qn8BsaznC7KtKYptjKbykknsa33bNg9PtohvvxF/exec', 'Presensi Kegiatan')" class="btn-presensi-main">
                     <i class="fas fa-user-check"></i>
                     <span>Presensi Kehadiran Kegiatan</span>
-                </a>
+                </div>
             </div>
         </div>
 
@@ -325,9 +376,9 @@
                 </button>
             </div>
 
-            <a href="#" class="btn-back" onclick="goHome()">
+            <div class="btn-back" onclick="goHome()">
                 <i class="fas fa-chevron-left"></i> Kembali ke Beranda
-            </a>
+            </div>
         </div>
 
         <div id="presensi-sub-page">
@@ -337,18 +388,18 @@
                 <p style="font-size: 13px; color: #666;">Kelola data kehadiran warga</p>
             </div>
             <div class="admin-grid">
-                <button class="btn-admin btn-pr" onclick="window.open('https://script.google.com/macros/s/AKfycbzGqfvfOPlsEp1SqLO6u38c4CiO3qn8BsaznC7KtKYptjKbykknsa33bNg9PtohvvxF/exec?page=rekap', '_blank')">
+                <button class="btn-admin btn-pr" onclick="openInPortal('https://script.google.com/macros/s/AKfycbzGqfvfOPlsEp1SqLO6u38c4CiO3qn8BsaznC7KtKYptjKbykknsa33bNg9PtohvvxF/exec?page=rekap', 'Rekap Kehadiran')">
                     <i class="fas fa-file-alt"></i>
                     <span>Rekap Kehadiran Warga</span>
                 </button>
-                <button class="btn-admin btn-dash" onclick="window.open('https://script.google.com/macros/s/AKfycbzGqfvfOPlsEp1SqLO6u38c4CiO3qn8BsaznC7KtKYptjKbykknsa33bNg9PtohvvxF/exec?page=admin', '_blank')">
+                <button class="btn-admin btn-dash" onclick="openInPortal('https://script.google.com/macros/s/AKfycbzGqfvfOPlsEp1SqLO6u38c4CiO3qn8BsaznC7KtKYptjKbykknsa33bNg9PtohvvxF/exec?page=admin', 'Panel Admin Presensi')">
                     <i class="fas fa-user-cog"></i>
                     <span>Panel Admin Presensi</span>
                 </button>
             </div>
-            <a href="#" class="btn-back" onclick="goToAdminFromSub()">
+            <div class="btn-back" onclick="goToAdminFromSub()">
                 <i class="fas fa-chevron-left"></i> Kembali ke Dashboard
-            </a>
+            </div>
         </div>
 
         <footer>
@@ -362,7 +413,7 @@
     <div class="modal-overlay" id="pinModal">
         <div class="modal-content">
             <h4 id="modal-title" style="color: var(--primary-color);">Verifikasi Akses</h4>
-            <p style="font-size: 12px; color: #888;">Masukkan 6 digit PIN Anda</p>
+            <p id="modal-desc" style="font-size: 12px; color: #888;">Masukkan 6 digit PIN Anda</p>
             <div id="error-msg" class="error-msg">PIN salah! Silakan coba lagi.</div>
             <div class="pin-display">
                 <div class="pin-dot"></div><div class="pin-dot"></div><div class="pin-dot"></div>
@@ -394,20 +445,33 @@
             },
             {
                 judul: "📝 Pemutakhiran Data Warga RT 05",
-                isi: "Mohon kesediaan Bapak/Ibu untuk memperbarui data keluarga demi tertib administrasi lingkungan kita. Silakan <a href='https://script.google.com/macros/s/AKfycbyKkn3WuDkeW3fAFDyLBvaQuR2mxBb5uxrAW6O1XZqXE4cCoeSA0mPvQdtdVfaSdSLV/exec' target='_blank'>klik link ini</a> untuk mengisi formulir."
+                isi: "Mohon kesediaan Bapak/Ibu untuk memperbarui data keluarga demi tertib administrasi lingkungan kita. Silakan <a onclick=\"openInPortal('https://script.google.com/macros/s/AKfycbyKkn3WuDkeW3fAFDyLBvaQuR2mxBb5uxrAW6O1XZqXE4cCoeSA0mPvQdtdVfaSdSLV/exec', 'Pemutakhiran Data')\">klik link ini</a> untuk mengisi formulir."
             }
         ];
 
         const CONFIG = {
-            'b1': { pin: "784512", url: "https://script.google.com/macros/s/AKfycbylHDBkFPgjwp_06kuyXAq4N9Fs5Qc1-zjOUguqATELWC3V7uijR05tbRvJomCkjWosPA/exec", title: "Akses Bendahara 1" },
-            'b2': { pin: "748596", url: "https://script.google.com/macros/s/AKfycbznJXao3iX_MoxlrVKUdRB7Olr2yvft1QxHdp2TaUIhUFGfTGT1DI8zlwTj7D0Fe0kk-g/exec", title: "Akses Bendahara 2" },
-            'db': { pin: "895623", url: "https://script.google.com/macros/s/AKfycbxh80hKAAPAkPQ-g9vc3DoV2juZ6XQZod1cPKXcU-60x8-Md_TX3zbkFHxqDH0FjIjY-A/exec", title: "Akses Database Warga" },
-            'admin': { pin: "142536", url: "https://script.google.com/macros/s/AKfycbxtWr2pgPPY7OlZmH2NFGyfk2dIYswB5DpQZzS7oo0LbJ5BZTVth3acMAuk_L0V6DYQug/exec", title: "Akses Admin Dashboard" },
-            'presensi': { pin: "794613", title: "Akses Setting Presensi" }
+            'b1': { pin: "784512", url: "https://script.google.com/macros/s/AKfycbylHDBkFPgjwp_06kuyXAq4N9Fs5Qc1-zjOUguqATELWC3V7uijR05tbRvJomCkjWosPA/exec", title: "Input Data Bendahara 1" },
+            'b2': { pin: "748596", url: "https://script.google.com/macros/s/AKfycbznJXao3iX_MoxlrVKUdRB7Olr2yvft1QxHdp2TaUIhUFGfTGT1DI8zlwTj7D0Fe0kk-g/exec", title: "Input Data Bendahara 2" },
+            'db': { pin: "895623", url: "https://script.google.com/macros/s/AKfycbxh80hKAAPAkPQ-g9vc3DoV2juZ6XQZod1cPKXcU-60x8-Md_TX3zbkFHxqDH0FjIjY-A/exec", title: "Database Warga" },
+            'admin': { pin: "142536", url: "https://script.google.com/macros/s/AKfycbxtWr2pgPPY7OlZmH2NFGyfk2dIYswB5DpQZzS7oo0LbJ5BZTVth3acMAuk_L0V6DYQug/exec", title: "Dashboard Pengurus" },
+            'presensi': { pin: "794613", title: "Manajemen Presensi" }
         };
 
         let inputPin = "";
         let currentTarget = "";
+
+        function openInPortal(url, title) {
+            document.getElementById('viewer-title').innerText = title;
+            document.getElementById('iframe-app').src = url;
+            document.getElementById('app-viewer').style.display = 'flex';
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeApp() {
+            document.getElementById('app-viewer').style.display = 'none';
+            document.getElementById('iframe-app').src = "";
+            document.body.style.overflow = 'auto';
+        }
 
         function loadAnnouncements() {
             const container = document.getElementById('announcement-list');
@@ -447,7 +511,8 @@
         function openPinModal(target) {
             currentTarget = target;
             inputPin = "";
-            document.getElementById('modal-title').innerText = CONFIG[target].title;
+            document.getElementById('modal-title').innerText = "Verifikasi Akses";
+            document.getElementById('modal-desc').innerText = CONFIG[target].title;
             document.getElementById('pinModal').style.display = 'flex';
             document.getElementById('error-msg').style.display = 'none';
             updateDots();
@@ -478,7 +543,7 @@
                 if(currentTarget === 'presensi') {
                     showPresensiSub();
                 } else {
-                    window.open(targetConfig.url, '_blank');
+                    openInPortal(targetConfig.url, targetConfig.title);
                 }
                 inputPin = "";
             } else {
