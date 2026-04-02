@@ -16,7 +16,8 @@
             --text-color: #333;
             --white: #ffffff;
             --danger: #d32f2f;
-            --db-color: #00796b; /* Warna untuk Database */
+            --db-color: #00796b;
+            --presensi-color: #6a1b9a; /* Warna khusus Presensi */
         }
 
         * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -55,7 +56,7 @@
             align-items: center;
             justify-content: space-between;
             box-shadow: 0 10px 20px rgba(46, 125, 50, 0.3);
-            margin-bottom: 25px;
+            margin-bottom: 20px;
             transition: transform 0.2s;
             position: relative;
             overflow: hidden;
@@ -89,7 +90,7 @@
             background: white;
             border-radius: 25px;
             padding: 20px;
-            margin-bottom: 25px;
+            margin-bottom: 20px;
             box-shadow: 0 4px 15px rgba(0,0,0,0.05);
             border-left: 6px solid var(--accent-color);
         }
@@ -127,7 +128,7 @@
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 15px;
-            margin-bottom: 25px;
+            margin-bottom: 20px;
         }
 
         .card-small {
@@ -146,6 +147,22 @@
         .card-small i { font-size: 28px; color: var(--primary-color); margin-bottom: 10px; display: block; }
         .card-small span { font-size: 14px; font-weight: 600; }
 
+        /* Khusus tombol presensi di home */
+        .btn-presensi-main {
+            grid-column: span 2;
+            background: linear-gradient(135deg, var(--presensi-color), #8e24aa);
+            color: white;
+            padding: 18px;
+            border-radius: 20px;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            font-weight: 600;
+            box-shadow: 0 4px 12px rgba(106, 27, 154, 0.2);
+        }
+
         .admin-trigger {
             background: white;
             border-radius: 20px;
@@ -160,8 +177,8 @@
             transition: 0.2s;
         }
 
-        /* --- PAGE PENGURUS --- */
-        #admin-page { display: none; }
+        /* --- PAGE PENGURUS & SUB-PAGES --- */
+        #admin-page, #presensi-sub-page { display: none; }
         .admin-header { text-align: center; margin-bottom: 30px; }
         .admin-header h2 { color: var(--primary-color); }
 
@@ -188,6 +205,7 @@
         .btn-b2 { background-color: #f4511e; }
         .btn-dash { background-color: #0d47a1; }
         .btn-db { background-color: var(--db-color); }
+        .btn-pr { background-color: var(--presensi-color); }
         
         .btn-back {
             margin-top: 30px;
@@ -258,8 +276,7 @@
                     <i class="fas fa-bullhorn"></i>
                     <h3>Informasi & Pengumuman</h3>
                 </div>
-                <div id="announcement-list" class="announcement-content">
-                    </div>
+                <div id="announcement-list" class="announcement-content"></div>
             </div>
 
             <div class="grid-menu">
@@ -270,6 +287,10 @@
                 <a href="https://script.google.com/macros/s/AKfycbxkb6X31X_jLzffZQ0glJWZandvgJ1JyHXu0vrrGNjf6H9gFWzyf8dc_hTRM0XAdHYgUg/exec" class="card-small" target="_blank">
                     <i class="fas fa-file-invoice-dollar" style="color: #ef6c00;"></i>
                     <span>Laporan Kas RT</span>
+                </a>
+                <a href="https://script.google.com/macros/s/AKfycbzGqfvfOPlsEp1SqLO6u38c4CiO3qn8BsaznC7KtKYptjKbykknsa33bNg9PtohvvxF/exec" class="btn-presensi-main" target="_blank">
+                    <i class="fas fa-user-check"></i>
+                    <span>Presensi Kehadiran Kegiatan</span>
                 </a>
             </div>
 
@@ -303,10 +324,35 @@
                     <i class="fas fa-chart-line"></i>
                     <span>Rincian Iuran Outstanding</span>
                 </button>
+                <button class="btn-admin btn-pr" onclick="openPinModal('presensi')">
+                    <i class="fas fa-calendar-check"></i>
+                    <span>Setting Presensi Kegiatan</span>
+                </button>
             </div>
 
             <a href="#" class="btn-back" onclick="goHome()">
                 <i class="fas fa-chevron-left"></i> Kembali ke Beranda
+            </a>
+        </div>
+
+        <div id="presensi-sub-page">
+            <div class="admin-header">
+                <i class="fas fa-tasks" style="font-size: 40px; color: var(--presensi-color); margin-bottom: 10px;"></i>
+                <h2>Manajemen Presensi</h2>
+                <p style="font-size: 13px; color: #666;">Kelola data kehadiran warga</p>
+            </div>
+            <div class="admin-grid">
+                <button class="btn-admin btn-pr" onclick="window.open('https://script.google.com/macros/s/AKfycbzGqfvfOPlsEp1SqLO6u38c4CiO3qn8BsaznC7KtKYptjKbykknsa33bNg9PtohvvxF/exec?page=rekap', '_blank')">
+                    <i class="fas fa-file-alt"></i>
+                    <span>Rekap Kehadiran Warga</span>
+                </button>
+                <button class="btn-admin btn-dash" onclick="window.open('https://script.google.com/macros/s/AKfycbzGqfvfOPlsEp1SqLO6u38c4CiO3qn8BsaznC7KtKYptjKbykknsa33bNg9PtohvvxF/exec?page=admin', '_blank')">
+                    <i class="fas fa-user-cog"></i>
+                    <span>Panel Admin Presensi</span>
+                </button>
+            </div>
+            <a href="#" class="btn-back" onclick="goToAdminFromSub()">
+                <i class="fas fa-chevron-left"></i> Kembali ke Dashboard
             </a>
         </div>
 
@@ -319,14 +365,11 @@
         <div class="modal-content">
             <h4 id="modal-title" style="color: var(--primary-color);">Verifikasi Akses</h4>
             <p style="font-size: 12px; color: #888;">Masukkan 6 digit PIN Anda</p>
-            
             <div id="error-msg" class="error-msg">PIN salah! Silakan coba lagi.</div>
-
             <div class="pin-display">
                 <div class="pin-dot"></div><div class="pin-dot"></div><div class="pin-dot"></div>
                 <div class="pin-dot"></div><div class="pin-dot"></div><div class="pin-dot"></div>
             </div>
-
             <div class="keypad">
                 <button class="key" onclick="pressKey('1')">1</button>
                 <button class="key" onclick="pressKey('2')">2</button>
@@ -346,51 +389,31 @@
     </div>
 
     <script>
-        /**
-         * --- AREA SETTING PENGUMUMAN (MUDAH DIUBAH) ---
-         * Anda bisa menambah, menghapus, atau mengubah teks di bawah ini.
-         * Gunakan format: { judul: "TEXT", isi: "TEXT" }
-         */
         const DATA_PENGUMUMAN = [
             {
                 judul: "📢 Sistem Informasi Warga: Modern, Rapi, & Transparan!",
-        isi: "Kabar gembira! Bulan ini Portal Digital RT 05 resmi dirilis. Kini urusan iuran jadi lebih praktis, pencatatan data makin rapi, dan laporan keuangan bisa dipantau secara transparan kapan saja."
+                isi: "Kabar gembira! Bulan ini Portal Digital RT 05 resmi dirilis. Kini urusan iuran jadi lebih praktis, pencatatan data makin rapi, dan laporan keuangan bisa dipantau secara transparan kapan saja."
             },
             {
                 judul: "📝 Pemutakhiran Data Warga RT 05",
-        isi: "Mohon kesediaan Bapak/Ibu untuk memperbarui data keluarga demi tertib administrasi lingkungan kita. Silakan <a href='https://script.google.com/macros/s/AKfycbyKkn3WuDkeW3fAFDyLBvaQuR2mxBb5uxrAW6O1XZqXE4cCoeSA0mPvQdtdVfaSdSLV/exec' target='_blank'>klik link ini</a> untuk mengisi formulir."
+                isi: "Mohon kesediaan Bapak/Ibu untuk memperbarui data keluarga demi tertib administrasi lingkungan kita. Silakan <a href='https://script.google.com/macros/s/AKfycbyKkn3WuDkeW3fAFDyLBvaQuR2mxBb5uxrAW6O1XZqXE4cCoeSA0mPvQdtdVfaSdSLV/exec' target='_blank'>klik link ini</a> untuk mengisi formulir."
             }
         ];
 
-        // Konfigurasi PIN dan Link
         const CONFIG = {
-            'b1': {
-                pin: "784512",
-                url: "https://script.google.com/macros/s/AKfycbylHDBkFPgjwp_06kuyXAq4N9Fs5Qc1-zjOUguqATELWC3V7uijR05tbRvJomCkjWosPA/exec",
-                title: "Akses Bendahara 1"
-            },
-            'b2': {
-                pin: "748596",
-                url: "https://script.google.com/macros/s/AKfycbznJXao3iX_MoxlrVKUdRB7Olr2yvft1QxHdp2TaUIhUFGfTGT1DI8zlwTj7D0Fe0kk-g/exec",
-                title: "Akses Bendahara 2"
-            },
-            'db': {
-                pin: "895623",
-                url: "https://script.google.com/macros/s/AKfycbxh80hKAAPAkPQ-g9vc3DoV2juZ6XQZod1cPKXcU-60x8-Md_TX3zbkFHxqDH0FjIjY-A/exec",
-                title: "Akses Database Warga"
-            },
-            'admin': {
-                pin: "142536",
-                url: "https://script.google.com/macros/s/AKfycbxtWr2pgPPY7OlZmH2NFGyfk2dIYswB5DpQZzS7oo0LbJ5BZTVth3acMAuk_L0V6DYQug/exec",
-                title: "Akses Admin Dashboard"
-            }
+            'b1': { pin: "784512", url: "https://script.google.com/macros/s/AKfycbylHDBkFPgjwp_06kuyXAq4N9Fs5Qc1-zjOUguqATELWC3V7uijR05tbRvJomCkjWosPA/exec", title: "Akses Bendahara 1" },
+            'b2': { pin: "748596", url: "https://script.google.com/macros/s/AKfycbznJXao3iX_MoxlrVKUdRB7Olr2yvft1QxHdp2TaUIhUFGfTGT1DI8zlwTj7D0Fe0kk-g/exec", title: "Akses Bendahara 2" },
+            'db': { pin: "895623", url: "https://script.google.com/macros/s/AKfycbxh80hKAAPAkPQ-g9vc3DoV2juZ6XQZod1cPKXcU-60x8-Md_TX3zbkFHxqDH0FjIjY-A/exec", title: "Akses Database Warga" },
+            'admin': { pin: "142536", url: "https://script.google.com/macros/s/AKfycbxtWr2pgPPY7OlZmH2NFGyfk2dIYswB5DpQZzS7oo0LbJ5BZTVth3acMAuk_L0V6DYQug/exec", title: "Akses Admin Dashboard" },
+            'presensi': { pin: "794613", title: "Akses Setting Presensi" }
         };
 
-        // Fungsi Load Pengumuman
+        let inputPin = "";
+        let currentTarget = "";
+
         function loadAnnouncements() {
             const container = document.getElementById('announcement-list');
-            container.innerHTML = ""; // Bersihkan isi lama
-
+            container.innerHTML = "";
             DATA_PENGUMUMAN.forEach(item => {
                 const div = document.createElement('div');
                 div.className = 'announcement-item';
@@ -399,23 +422,28 @@
             });
         }
 
-        // Jalankan saat halaman dibuka
-        window.onload = function() {
-            loadAnnouncements();
-        };
-
-        let inputPin = "";
-        let currentTarget = "";
+        window.onload = loadAnnouncements;
 
         function goToAdmin() {
             document.getElementById('main-page').style.display = 'none';
+            document.getElementById('presensi-sub-page').style.display = 'none';
             document.getElementById('admin-page').style.display = 'block';
             window.scrollTo(0,0);
+        }
+
+        function goToAdminFromSub() {
+            document.getElementById('presensi-sub-page').style.display = 'none';
+            document.getElementById('admin-page').style.display = 'block';
         }
 
         function goHome() {
             document.getElementById('admin-page').style.display = 'none';
             document.getElementById('main-page').style.display = 'block';
+        }
+
+        function showPresensiSub() {
+            document.getElementById('admin-page').style.display = 'none';
+            document.getElementById('presensi-sub-page').style.display = 'block';
         }
 
         function openPinModal(target) {
@@ -427,9 +455,7 @@
             updateDots();
         }
 
-        function closeModal() {
-            document.getElementById('pinModal').style.display = 'none';
-        }
+        function closeModal() { document.getElementById('pinModal').style.display = 'none'; }
 
         function pressKey(n) {
             if(inputPin.length < 6) {
@@ -444,16 +470,18 @@
 
         function updateDots() {
             const dots = document.querySelectorAll('.pin-dot');
-            dots.forEach((dot, i) => {
-                dot.classList.toggle('active', i < inputPin.length);
-            });
+            dots.forEach((dot, i) => { dot.classList.toggle('active', i < inputPin.length); });
         }
 
         function verifyPin() {
             const targetConfig = CONFIG[currentTarget];
             if(inputPin === targetConfig.pin) {
-                window.open(targetConfig.url, '_blank');
                 closeModal();
+                if(currentTarget === 'presensi') {
+                    showPresensiSub();
+                } else {
+                    window.open(targetConfig.url, '_blank');
+                }
                 inputPin = "";
             } else {
                 document.getElementById('error-msg').style.display = 'block';
