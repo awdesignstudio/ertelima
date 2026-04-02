@@ -170,7 +170,7 @@
             cursor: pointer;
         }
 
-        /* --- IFRAME VIEWER --- */
+        /* --- IFRAME VIEWER & LOADER --- */
         #app-viewer {
             display: none;
             position: fixed;
@@ -187,6 +187,36 @@
             align-items: center;
             border-bottom: 1px solid #eee;
             gap: 15px;
+            z-index: 2002;
+        }
+
+        #app-loader {
+            position: absolute;
+            top: 65px; /* Sesuaikan dengan tinggi viewer-header */
+            left: 0;
+            width: 100%;
+            height: calc(100% - 65px);
+            background: white;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 2001;
+        }
+
+        .spinner {
+            width: 40px;
+            height: 40px;
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid var(--primary-color);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-bottom: 15px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
         }
 
         .btn-close-viewer {
@@ -300,7 +330,13 @@
             <button class="btn-close-viewer" onclick="closeApp()"><i class="fas fa-arrow-left"></i> Kembali</button>
             <span id="viewer-title" style="font-weight: 600; font-size: 14px;">Aplikasi</span>
         </div>
-        <iframe id="iframe-app" src=""></iframe>
+        
+        <div id="app-loader">
+            <div class="spinner"></div>
+            <p style="font-size: 13px; color: #666;">Memuat aplikasi...</p>
+        </div>
+
+        <iframe id="iframe-app" src="" onload="hideLoader()"></iframe>
     </div>
 
     <header id="main-header">
@@ -466,9 +502,14 @@
 
         function openInPortal(url, title) {
             document.getElementById('viewer-title').innerText = title;
+            document.getElementById('app-loader').style.display = 'flex'; // Tampilkan loader
             document.getElementById('iframe-app').src = url;
             document.getElementById('app-viewer').style.display = 'flex';
             document.body.style.overflow = 'hidden';
+        }
+
+        function hideLoader() {
+            document.getElementById('app-loader').style.display = 'none'; // Sembunyikan loader setelah iframe load
         }
 
         function closeApp() {
