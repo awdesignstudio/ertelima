@@ -64,6 +64,18 @@
         }
         #install-pwa:active { transform: scale(0.95); }
 
+        /* Style untuk teks panduan instalasi */
+        .install-note {
+            display: none;
+            font-size: 11px;
+            margin-top: 8px;
+            opacity: 0.9;
+            max-width: 250px;
+            margin-left: auto;
+            margin-right: auto;
+            line-height: 1.3;
+        }
+
         .container {
             max-width: 600px;
             margin: -30px auto 50px;
@@ -367,14 +379,15 @@
         <iframe id="iframe-app" src="" onload="hideLoader()"></iframe>
     </div>
 
-   <header id="main-header">
-    <i class="fas fa-city" style="font-size: 40px; margin-bottom: 15px;"></i>
-    <h1 style="font-size: 22px; font-weight: 800;"><b>ERTE LIMA</b></h1>
-    <p style="font-size: 14px; opacity: 0.8;">
-        Sistem & <b>L</b>ayanan <b>I</b>nformasi <b>MA</b>syarakat RT 05 Permata Harmoni
-    </p>
+    <header id="main-header">
+        <i class="fas fa-city" style="font-size: 40px; margin-bottom: 15px;"></i>
+        <h1 style="font-size: 22px; font-weight: 800;"><b>ERTE LIMA</b></h1>
+        <p style="font-size: 14px; opacity: 0.8;">
+            Sistem & <b>L</b>ayanan <b>I</b>nformasi <b>MA</b>syarakat RT 05 Permata Harmoni
+        </p>
         
         <button id="install-pwa"><i class="fas fa-mobile-alt"></i> Instal Aplikasi Portal</button>
+        <p class="install-note" id="install-note">Klik tombol di atas untuk memasang aplikasi ERTE LIMA di layar HP Bapak/Ibu agar lebih praktis dan mudah diakses sewaktu-waktu.</p>
     </header>
 
     <div class="container" id="main-container">
@@ -519,7 +532,6 @@
             const loader = document.getElementById('app-loader');
             if (loader) {
                 loader.style.display = 'none';
-                console.log("Loader disembunyikan");
             }
         }
 
@@ -658,15 +670,18 @@
 
         let deferredPrompt;
         const btnInstall = document.getElementById('install-pwa');
+        const installNote = document.getElementById('install-note');
 
         window.addEventListener('beforeinstallprompt', (e) => {
             e.preventDefault();
             deferredPrompt = e;
             btnInstall.style.display = 'inline-block';
+            installNote.style.display = 'block'; // Munculkan teks panduan
         });
 
         btnInstall.addEventListener('click', (e) => {
             btnInstall.style.display = 'none';
+            installNote.style.display = 'none';
             if (deferredPrompt) {
                 deferredPrompt.prompt();
                 deferredPrompt.userChoice.then((choiceResult) => {
@@ -679,8 +694,8 @@
         });
 
         window.addEventListener('appinstalled', (event) => {
-            console.log('App installed');
             btnInstall.style.display = 'none';
+            installNote.style.display = 'none';
         });
     </script>
 </body>
