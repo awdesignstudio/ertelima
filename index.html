@@ -47,8 +47,9 @@
             box-shadow: 0 4px 15px rgba(0,0,0,0.1);
         }
 
+        /* PERBAIKAN: Display diubah menjadi inline-block agar muncul terus */
         #install-pwa {
-            display: none;
+            display: inline-block;
             margin-top: 15px;
             background: var(--accent-color);
             color: white;
@@ -64,9 +65,9 @@
         }
         #install-pwa:active { transform: scale(0.95); }
 
-        /* Style untuk teks panduan instalasi */
+        /* PERBAIKAN: Display diubah menjadi block agar muncul terus */
         .install-note {
-            display: none;
+            display: block;
             font-size: 11px;
             margin-top: 8px;
             opacity: 0.9;
@@ -675,21 +676,22 @@
         window.addEventListener('beforeinstallprompt', (e) => {
             e.preventDefault();
             deferredPrompt = e;
-            btnInstall.style.display = 'inline-block';
-            installNote.style.display = 'block'; // Munculkan teks panduan
+            // Di sini kita tidak perlu lagi memaksa display, karena sudah ada di CSS
         });
 
         btnInstall.addEventListener('click', (e) => {
-            btnInstall.style.display = 'none';
-            installNote.style.display = 'none';
             if (deferredPrompt) {
                 deferredPrompt.prompt();
                 deferredPrompt.userChoice.then((choiceResult) => {
                     if (choiceResult.outcome === 'accepted') {
-                        console.log('User accepted the install prompt');
+                        btnInstall.style.display = 'none';
+                        installNote.style.display = 'none';
                     }
                     deferredPrompt = null;
                 });
+            } else {
+                // FALLBACK JIKA PROMPT TIDAK TERDETEKSI (MISAL SAFARI ATAU HP LAIN)
+                alert("Untuk menginstal aplikasi:\n1. Klik ikon titik tiga (⋮) atau menu 'Bagikan' di browser Anda.\n2. Pilih menu 'Tambahkan ke Layar Utama' atau 'Instal Aplikasi'.");
             }
         });
 
