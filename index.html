@@ -47,9 +47,9 @@
             box-shadow: 0 4px 15px rgba(0,0,0,0.1);
         }
 
-        /* PERBAIKAN: Tombol tampil default, disembunyikan HANYA jika dalam mode aplikasi */
+        /* PERBAIKAN: Tombol disembunyikan secara default, muncul lewat JS jika bukan mode aplikasi */
         #install-pwa {
-            display: inline-block; 
+            display: none; 
             margin-top: 15px;
             background: var(--accent-color);
             color: white;
@@ -66,7 +66,7 @@
         #install-pwa:active { transform: scale(0.95); }
 
         .install-note {
-            display: block;
+            display: none;
             font-size: 11px;
             margin-top: 8px;
             opacity: 0.9;
@@ -76,7 +76,6 @@
             line-height: 1.3;
         }
 
-        /* CSS sakti untuk menyembunyikan tombol saat sudah di instal & dibuka sebagai aplikasi */
         @media (display-mode: standalone) {
             #install-pwa, .install-note {
                 display: none !important;
@@ -133,10 +132,11 @@
             display: inline-block;
         }
 
+        /* AKORDEON PENGUMUMAN */
         .announcement-board {
             background: white;
             border-radius: 25px;
-            padding: 20px;
+            padding: 15px;
             margin-bottom: 20px;
             box-shadow: 0 4px 15px rgba(0,0,0,0.05);
             border-left: 6px solid var(--accent-color);
@@ -146,30 +146,67 @@
             display: flex;
             align-items: center;
             gap: 10px;
-            margin-bottom: 12px;
+            margin-bottom: 10px;
             color: var(--accent-color);
+            padding: 5px;
         }
 
         .announcement-header i { font-size: 18px; }
         .announcement-header h3 { font-size: 16px; font-weight: 700; }
 
-        .announcement-content {
-            font-size: 14px;
-            color: #555;
-        }
-
         .announcement-item {
             background: #fff9f0;
-            padding: 12px;
             border-radius: 12px;
-            margin-bottom: 10px;
+            margin-bottom: 8px;
             border: 1px solid #ffe0b2;
+            overflow: hidden;
         }
 
         .announcement-item:last-child { margin-bottom: 0; }
-        .announcement-item b { color: #e65100; display: block; margin-bottom: 2px; }
-        .announcement-item a { color: var(--primary-color); font-weight: 600; text-decoration: underline; cursor: pointer; }
 
+        .acc-trigger {
+            width: 100%;
+            padding: 12px 15px;
+            background: none;
+            border: none;
+            text-align: left;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            font-family: 'Poppins', sans-serif;
+            font-size: 14px;
+            font-weight: 700;
+            color: #e65100;
+            gap: 10px;
+        }
+
+        .acc-trigger i {
+            transition: transform 0.3s;
+            font-size: 12px;
+            color: var(--accent-color);
+        }
+
+        .announcement-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out, padding 0.3s ease;
+            font-size: 13px;
+            color: #555;
+            background: #fff;
+        }
+
+        .announcement-content.open {
+            max-height: 500px;
+            padding: 12px 15px;
+            border-top: 1px solid #ffe0b2;
+        }
+
+        .acc-trigger.active i {
+            transform: rotate(180deg);
+        }
+
+        /* GRID MENU */
         .grid-menu {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -367,7 +404,7 @@
 
         .error-msg { color: var(--danger); font-size: 12px; margin-bottom: 10px; display: none; }
 
-        /* Hidden Input untuk memicu keyboard numeric asli HP */
+        /* Input Tersembunyi untuk Memicu Keyboard */
         #hidden-pin-input {
             position: absolute;
             opacity: 0;
@@ -406,6 +443,7 @@
     </header>
 
     <div class="container" id="main-container">
+        
         <div id="main-page">
             <div onclick="openInPortal('https://script.google.com/macros/s/AKfycbwbz-vQqz5OrxFp-1qiiJgRUyKTA9lq23a18Xl43SB3Zcc8bYXYth3sNCfNUopEsnAk/exec', 'Pembayaran Iuran')" class="hero-card">
                 <div class="hero-text">
@@ -422,7 +460,7 @@
                     <i class="fas fa-bullhorn"></i>
                     <h3>Informasi & Pengumuman</h3>
                 </div>
-                <div id="announcement-list" class="announcement-content"></div>
+                <div id="announcement-list"></div>
             </div>
 
             <div class="grid-menu">
@@ -516,7 +554,7 @@
 
     <div class="modal-overlay" id="pinModal">
         <div class="modal-content">
-            <input type="tel" id="hidden-pin-input" maxlength="6" pattern="[0-9]*" inputmode="numeric">
+            <input type="number" id="hidden-pin-input" pattern="[0-9]*" inputmode="numeric">
             
             <h4 id="modal-title" style="color: var(--primary-color);">Verifikasi Akses</h4>
             <p id="modal-desc" style="font-size: 12px; color: #888;">Masukkan 6 digit PIN Anda</p>
@@ -546,7 +584,9 @@
     <script>
         function hideLoader() {
             const loader = document.getElementById('app-loader');
-            if (loader) loader.style.display = 'none';
+            if (loader) {
+                loader.style.display = 'none';
+            }
         }
 
         const DATA_PENGUMUMAN = [
@@ -571,7 +611,6 @@
 
         let inputPin = "";
         let currentTarget = "";
-        const hiddenInput = document.getElementById('hidden-pin-input');
 
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', () => {
@@ -593,17 +632,44 @@
             document.getElementById('app-viewer').style.display = 'none';
             document.getElementById('iframe-app').src = "";
             document.body.style.overflow = 'auto';
+            resetAccordions();
         }
 
         function loadAnnouncements() {
             const container = document.getElementById('announcement-list');
             container.innerHTML = "";
-            DATA_PENGUMUMAN.forEach(item => {
+            DATA_PENGUMUMAN.forEach((item, index) => {
                 const div = document.createElement('div');
                 div.className = 'announcement-item';
-                div.innerHTML = `<b>${item.judul}</b><span>${item.isi}</span>`;
+                div.innerHTML = `
+                    <button class="acc-trigger" onclick="toggleAccordion(${index})">
+                        <span>${item.judul}</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div id="acc-content-${index}" class="announcement-content">
+                        ${item.isi}
+                    </div>
+                `;
                 container.appendChild(div);
             });
+        }
+
+        function toggleAccordion(index) {
+            const content = document.getElementById(`acc-content-${index}`);
+            const trigger = content.previousElementSibling;
+            const isOpen = content.classList.contains('open');
+            resetAccordions();
+            if (!isOpen) {
+                content.classList.add('open');
+                trigger.classList.add('active');
+            }
+        }
+
+        function resetAccordions() {
+            const contents = document.querySelectorAll('.announcement-content');
+            const triggers = document.querySelectorAll('.acc-trigger');
+            contents.forEach(c => c.classList.remove('open'));
+            triggers.forEach(t => t.classList.remove('active'));
         }
 
         window.onload = loadAnnouncements;
@@ -623,6 +689,7 @@
         function goHome() {
             document.getElementById('admin-page').style.display = 'none';
             document.getElementById('main-page').style.display = 'block';
+            resetAccordions();
         }
 
         function showPresensiSub() {
@@ -633,40 +700,54 @@
         function openPinModal(target) {
             currentTarget = target;
             inputPin = "";
-            hiddenInput.value = "";
             document.getElementById('modal-title').innerText = "Verifikasi Akses";
             document.getElementById('modal-desc').innerText = CONFIG[target].title;
             document.getElementById('pinModal').style.display = 'flex';
             document.getElementById('error-msg').style.display = 'none';
             updateDots();
             
-            // Fokus ke hidden input agar keyboard HP muncul otomatis
-            setTimeout(() => hiddenInput.focus(), 300);
+            // Trigger keyboard numerik
+            const hiddenInput = document.getElementById('hidden-pin-input');
+            hiddenInput.value = "";
+            hiddenInput.focus();
         }
+
+        // Logic Input via Keyboard asli
+        document.getElementById('hidden-pin-input').addEventListener('input', function(e) {
+            const val = e.target.value;
+            if (val.length > inputPin.length) {
+                const char = val.slice(-1);
+                if (inputPin.length < 6) pressKey(char);
+            } else if (val.length < inputPin.length) {
+                backspace();
+            }
+            e.target.value = inputPin; // Sinkronkan nilai
+        });
 
         function closeModal() { 
             document.getElementById('pinModal').style.display = 'none'; 
-            hiddenInput.blur();
+            document.getElementById('hidden-pin-input').blur();
         }
-
-        // Logic Sinkronisasi Keypad dan Keyboard Fisik HP
-        hiddenInput.addEventListener('input', (e) => {
-            inputPin = e.target.value;
-            updateDots();
-            if(inputPin.length === 6) verifyPin();
-        });
 
         function pressKey(n) {
             if(inputPin.length < 6) {
                 inputPin += n;
-                hiddenInput.value = inputPin;
                 updateDots();
                 if(inputPin.length === 6) verifyPin();
             }
         }
 
-        function clearPin() { inputPin = ""; hiddenInput.value = ""; updateDots(); }
-        function backspace() { inputPin = inputPin.slice(0, -1); hiddenInput.value = inputPin; updateDots(); }
+        function clearPin() { 
+            inputPin = ""; 
+            document.getElementById('hidden-pin-input').value = "";
+            updateDots(); 
+        }
+
+        function backspace() { 
+            inputPin = inputPin.slice(0, -1); 
+            document.getElementById('hidden-pin-input').value = inputPin;
+            updateDots(); 
+        }
 
         function updateDots() {
             const dots = document.querySelectorAll('.pin-dot');
@@ -686,11 +767,10 @@
             } else {
                 document.getElementById('error-msg').style.display = 'block';
                 inputPin = "";
-                hiddenInput.value = "";
+                document.getElementById('hidden-pin-input').value = "";
                 setTimeout(() => {
                     updateDots();
                     document.getElementById('error-msg').style.display = 'none';
-                    hiddenInput.focus();
                 }, 1000);
             }
         }
@@ -700,15 +780,23 @@
             if (event.target == modal) closeModal();
         }
 
-        // PWA INSTALL LOGIC
         let deferredPrompt;
         const btnInstall = document.getElementById('install-pwa');
         const installNote = document.getElementById('install-note');
 
+        // PERBAIKAN: Deteksi Status Instalasi saat halaman dimuat
+        window.addEventListener('load', () => {
+            const isStandalone = window.matchMedia('(display-mode: standalone)').matches;
+            if (!isStandalone) {
+                // Munculkan tombol jika bukan mode aplikasi
+                btnInstall.style.display = 'inline-block';
+                installNote.style.display = 'block';
+            }
+        });
+
         window.addEventListener('beforeinstallprompt', (e) => {
             e.preventDefault();
             deferredPrompt = e;
-            // Tombol tetap muncul (tapi sekarang sudah default muncul di CSS)
         });
 
         btnInstall.addEventListener('click', (e) => {
