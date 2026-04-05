@@ -47,7 +47,6 @@
             box-shadow: 0 4px 15px rgba(0,0,0,0.1);
         }
 
-        /* PERBAIKAN: Tombol disembunyikan secara default, muncul lewat JS jika bukan mode aplikasi */
         #install-pwa {
             display: none; 
             margin-top: 15px;
@@ -132,7 +131,6 @@
             display: inline-block;
         }
 
-        /* AKORDEON PENGUMUMAN */
         .announcement-board {
             background: white;
             border-radius: 25px;
@@ -206,7 +204,6 @@
             transform: rotate(180deg);
         }
 
-        /* GRID MENU */
         .grid-menu {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -404,7 +401,6 @@
 
         .error-msg { color: var(--danger); font-size: 12px; margin-bottom: 10px; display: none; }
 
-        /* Input Tersembunyi untuk Memicu Keyboard */
         #hidden-pin-input {
             position: absolute;
             opacity: 0;
@@ -526,7 +522,12 @@
                 <p style="font-size: 13px; color: #666;">Kelola data kehadiran warga</p>
             </div>
             <div class="admin-grid">
-                <button class="btn-admin btn-pr" onclick="openInPortal('https://script.google.com/macros/s/AKfycbzGqfvfOPlsEp1SqLO6u38c4CiO3qn8BsaznC7KtKYptjKbykknsa33bNg9PtohvvxF/exec?page=rekap', 'Rekap Kehadiran')">
+                <button class="btn-admin" style="background: linear-gradient(135deg, #1b5e20, #43a047);" onclick="openInPortal('https://script.google.com/macros/s/AKfycbzFJHkgw8dD3poKDvKelPEo3SaYvZi2MynzjI08dZzV76tM61-VE-McXQnPU0nwxW8y/exec', 'Buat Undangan Kegiatan')">
+                    <i class="fas fa-envelope-open-text"></i>
+                    <span>BUAT UNDANGAN KEGIATAN</span>
+                </button>
+                
+                <button class="btn-admin btn-pr" onclick="openInPortal('https://script.google.com/macros/s/AKfycbyGqfvfOPlsEp1SqLO6u38c4CiO3qn8BsaznC7KtKYptjKbykknsa33bNg9PtohvvxF/exec?page=rekap', 'Rekap Kehadiran')">
                     <i class="fas fa-file-alt"></i>
                     <span>Rekap Kehadiran Warga</span>
                 </button>
@@ -706,13 +707,11 @@
             document.getElementById('error-msg').style.display = 'none';
             updateDots();
             
-            // Trigger keyboard numerik
             const hiddenInput = document.getElementById('hidden-pin-input');
             hiddenInput.value = "";
             hiddenInput.focus();
         }
 
-        // Logic Input via Keyboard asli
         document.getElementById('hidden-pin-input').addEventListener('input', function(e) {
             const val = e.target.value;
             if (val.length > inputPin.length) {
@@ -721,7 +720,7 @@
             } else if (val.length < inputPin.length) {
                 backspace();
             }
-            e.target.value = inputPin; // Sinkronkan nilai
+            e.target.value = inputPin;
         });
 
         function closeModal() { 
@@ -784,11 +783,9 @@
         const btnInstall = document.getElementById('install-pwa');
         const installNote = document.getElementById('install-note');
 
-        // PERBAIKAN: Deteksi Status Instalasi saat halaman dimuat
         window.addEventListener('load', () => {
             const isStandalone = window.matchMedia('(display-mode: standalone)').matches;
             if (!isStandalone) {
-                // Munculkan tombol jika bukan mode aplikasi
                 btnInstall.style.display = 'inline-block';
                 installNote.style.display = 'block';
             }
