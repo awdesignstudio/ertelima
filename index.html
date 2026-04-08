@@ -518,13 +518,18 @@
         <div id="presensi-sub-page">
             <div class="admin-header">
                 <i class="fas fa-tasks" style="font-size: 40px; color: var(--presensi-color); margin-bottom: 10px;"></i>
-                <h2>Manajemen Presensi</h2>
-                <p style="font-size: 13px; color: #666;">Kelola data kehadiran warga</p>
+                <h2>Manajemen Sekretaris</h2>
+                <p style="font-size: 13px; color: #666;">Kelola data kehadiran & informasi warga</p>
             </div>
             <div class="admin-grid">
                 <button class="btn-admin" style="background: linear-gradient(135deg, #1b5e20, #43a047);" onclick="openInPortal('https://script.google.com/macros/s/AKfycbynS2IldGu0f_jCVx4loQNtP0HEX7aoS19CAT2N6UlmWprnLqqvbAOkiaC57Z6xJjM/exec', 'Buat Undangan Kegiatan')">
                     <i class="fas fa-envelope-open-text"></i>
                     <span>BUAT UNDANGAN KEGIATAN</span>
+                </button>
+
+                <button class="btn-admin" style="background: #2e7d32;" onclick="openInPortal('https://script.google.com/macros/s/AKfycbyKkn3WuDkeW3fAFDyLBvaQuR2mxBb5uxrAW6O1XZqXE4cCoeSA0mPvQdtdVfaSdSLV/exec?view=admin', 'Manajemen Data Denah Warga')">
+                    <i class="fas fa-map-marked"></i>
+                    <span>MANAJEMEN DATA DENAH WARGA</span>
                 </button>
                 
                 <button class="btn-admin btn-pr" onclick="openInPortal('https://script.google.com/macros/s/AKfycbyGqfvfOPlsEp1SqLO6u38c4CiO3qn8BsaznC7KtKYptjKbykknsa33bNg9PtohvvxF/exec?page=rekap', 'Rekap Kehadiran')">
@@ -546,7 +551,7 @@
         </div>
 
         <footer>
-            <p>&copy; 2026 RT 05 Permata Harmoni <br> supported by AW Design</p>
+            <p>&copy; 2026 RT 05 Permata Harmoni <br> supported by AW Design Studio</p>
             <div class="secret-trigger" onclick="goToAdmin()">
                 <i class="fas fa-shield-alt"></i>
             </div>
@@ -607,7 +612,7 @@
             'b2': { pin: "748596", url: "https://script.google.com/macros/s/AKfycbznJXao3iX_MoxlrVKUdRB7Olr2yvft1QxHdp2TaUIhUFGfTGT1DI8zlwTj7D0Fe0kk-g/exec", title: "Input Data Bendahara 2" },
             'db': { pin: "895623", url: "https://script.google.com/macros/s/AKfycbxh80hKAAPAkPQ-g9vc3DoV2juZ6XQZod1cPKXcU-60x8-Md_TX3zbkFHxqDH0FjIjY-A/exec", title: "Database Warga" },
             'admin': { pin: "142536", url: "https://script.google.com/macros/s/AKfycbxtWr2pgPPY7OlZmH2NFGyfk2dIYswB5DpQZzS7oo0LbJ5BZTVth3acMAuk_L0V6DYQug/exec", title: "Dashboard Pengurus" },
-            'presensi': { pin: "794613", title: "Manajemen Presensi" }
+            'presensi': { pin: "794613", title: "Manajemen Sekretaris" }
         };
 
         let inputPin = "";
