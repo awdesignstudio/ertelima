@@ -1,4 +1,4 @@
-const CACHE_NAME = 'rt05-portal-v2.9'; // Ganti tiap ada update besar
+const CACHE_NAME = 'rt05-portal-v3.0'; // Ganti tiap ada update besar
 
 // 1. Sesuaikan file yang di-cache dengan struktur repository Mas Adhi
 const urlsToCache = [
