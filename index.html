@@ -244,6 +244,28 @@
             cursor: pointer;
         }
 
+        /* PANIC BUTTON STYLE */
+        .btn-panic-main {
+            grid-column: span 2;
+            background: linear-gradient(135deg, #d32f2f, #b71c1c);
+            color: white;
+            padding: 18px;
+            border-radius: 20px;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            font-weight: 700;
+            box-shadow: 0 4px 12px rgba(211, 47, 47, 0.3);
+            cursor: pointer;
+            margin-top: 5px;
+            border: none;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .btn-panic-main:active { transform: scale(0.95); }
+
         #app-viewer {
             display: none;
             position: fixed;
@@ -479,6 +501,11 @@
                 <div onclick="openInPortal('https://script.google.com/macros/s/AKfycbzGqfvfOPlsEp1SqLO6u38c4CiO3qn8BsaznC7KtKYptjKbykknsa33bNg9PtohvvxF/exec', 'Presensi Kegiatan')" class="btn-presensi-main">
                     <i class="fas fa-user-check"></i>
                     <span>Presensi Kehadiran Kegiatan</span>
+                </div>
+
+                <div onclick="openInPortal('LINK_GITHUB_PANIC_BUTTON_BAPAK', 'Panic Button')" class="btn-panic-main">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    <span>PANIC BUTTON (DARURAT)</span>
                 </div>
             </div>
         </div>
