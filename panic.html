@@ -6,56 +6,107 @@
     <title>PANIC BUTTON RT 05</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap" rel="stylesheet">
     <style>
-        body { background-color: #1a1a1a; color: white; font-family: 'Poppins', sans-serif; display: flex; align-items: center; justify-content: center; height: 100vh; margin: 0; overflow: hidden; }
-        .container { text-align: center; max-width: 400px; padding: 20px; }
+        body { 
+            background: radial-gradient(circle at center, #2c2c2c 0%, #1a1a1a 100%); 
+            color: white; 
+            font-family: 'Poppins', sans-serif; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            height: 100vh; 
+            margin: 0; 
+            overflow: hidden; 
+        }
+        .container { text-align: center; max-width: 400px; padding: 20px; position: relative; }
         
         /* SEARCHABLE DROPDOWN */
         .search-container { position: relative; text-align: left; }
         .suggestion-box { 
-            position: absolute; top: 100%; left: 0; right: 0; 
-            background: #2a2a2a; border-radius: 12px; border: 1px solid #444;
-            max-height: 200px; overflow-y: auto; z-index: 1000; display: none;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.5); margin-top: 5px;
+            position: absolute; 
+            top: 100%; left: 0; right: 0; 
+            background: #2a2a2a; 
+            border-radius: 0 0 15px 15px; 
+            border: 1px solid #444;
+            max-height: 250px; 
+            overflow-y: auto; 
+            z-index: 2000; 
+            display: none;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            margin-top: -5px; /* Biar nempel sama input */
         }
-        .suggestion-item { padding: 12px 15px; cursor: pointer; border-bottom: 1px solid #333; transition: 0.2s; }
-        .suggestion-item:hover { background: #d32f2f; color: white; }
-        .suggestion-item .unit-num { font-weight: 800; display: block; font-size: 0.9rem; }
-        .suggestion-item .warga-name { font-size: 0.75rem; opacity: 0.7; }
+        .suggestion-item { 
+            padding: 12px 20px; 
+            cursor: pointer; 
+            border-bottom: 1px solid #383838; 
+            transition: 0.2s; 
+        }
+        .suggestion-item:hover { background: #d32f2f; }
+        .suggestion-item .unit-num { font-weight: 800; display: block; font-size: 1rem; color: #fff; }
+        .suggestion-item .warga-name { font-size: 0.8rem; color: #aaa; }
+        .suggestion-item:hover .warga-name { color: #eee; }
+
+        /* INPUT STYLE */
+        #searchInput {
+            border-radius: 15px;
+            border: 2px solid #444;
+            background: #222;
+            color: white;
+            padding: 15px;
+            font-weight: 600;
+        }
+        #searchInput:focus {
+            border-color: #d32f2f;
+            box-shadow: none;
+            border-radius: 15px 15px 0 0; /* Kotak bawah hilang pas ngetik */
+        }
 
         /* PANIC BUTTON ANIMATION */
         .btn-panic {
-            width: 220px; height: 220px; border-radius: 50%;
+            width: 230px; height: 230px; border-radius: 50%;
             background: radial-gradient(circle, #ff4b2b 0%, #dc3545 100%);
-            border: 10px solid #550000; color: white; font-weight: 800; font-size: 24px;
-            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            border: 12px solid #550000; 
+            color: white; 
+            font-weight: 800; 
+            font-size: 26px;
+            display: flex; 
+            flex-direction: column; 
+            align-items: center; 
+            justify-content: center;
             box-shadow: 0 0 0 0 rgba(220, 53, 69, 0.7);
-            animation: pulse-red 2s infinite; cursor: pointer; border: none;
+            animation: pulse-red 2s infinite; 
+            cursor: pointer;
+            text-transform: uppercase;
+            text-decoration: none;
+            user-select: none;
         }
-        .btn-panic:active { transform: scale(0.9); animation: none; }
+        .btn-panic:active { transform: scale(0.9); animation: none; background: #900; }
 
         @keyframes pulse-red {
             0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(220, 53, 69, 0.7); }
-            70% { transform: scale(1); box-shadow: 0 0 0 20px rgba(220, 53, 69, 0); }
+            70% { transform: scale(1); box-shadow: 0 0 0 25px rgba(220, 53, 69, 0); }
             100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(220, 53, 69, 0); }
         }
 
-        .unit-display { font-size: 1.3rem; margin-bottom: 20px; color: #ffc107; font-weight: 800; text-shadow: 0 2px 10px rgba(255,193,7,0.3); }
+        .unit-display { font-size: 1.4rem; margin-bottom: 25px; color: #ffc107; font-weight: 800; text-shadow: 0 2px 10px rgba(255,193,7,0.4); }
         #setupView, #panicView { display: none; }
-        .loader-text { font-size: 0.8rem; color: #888; margin-top: 10px; }
+        .loader-text { font-size: 0.85rem; color: #888; margin-top: 15px; }
+        
+        .spinner-border-custom { width: 3rem; height: 3rem; color: #d32f2f; }
     </style>
 </head>
 <body>
 
 <div class="container">
     <div id="setupView">
-        <i class="fas fa-shield-alt fa-3x mb-3 text-danger"></i>
-        <h4 class="fw-bold">Aktivasi Tombol Darurat</h4>
-        <p class="small text-secondary mb-4">Cari Unit Rumah atau Nama Anda untuk mengaktifkan fitur Panic Button.</p>
+        <i class="fas fa-shield-alt fa-4x mb-3 text-danger"></i>
+        <h3 class="fw-bold mb-1">Aktivasi Tombol</h3>
+        <p class="small text-secondary mb-4">Cari Unit atau Nama Anda untuk mengunci identitas Panic Button ini.</p>
         
-        <div class="search-container mb-4">
-            <input type="text" id="searchInput" class="form-control form-control-lg bg-dark text-white border-secondary" 
-                   placeholder="Ketik Unit atau Nama..." autocomplete="off" oninput="filterWarga(this.value)">
+        <div class="search-container mb-4" id="searchArea">
+            <input type="text" id="searchInput" class="form-control form-control-lg" 
+                   placeholder="Ketik Nama / Unit..." autocomplete="off" oninput="filterWarga(this.value)">
             <div id="suggestionBox" class="suggestion-box"></div>
         </div>
         
@@ -66,19 +117,20 @@
 
     <div id="panicView">
         <div class="unit-display" id="displayUnit">UNIT: --</div>
-        <button class="btn-panic mx-auto" id="mainButton" onclick="sendPanic()">
-            <i class="fas fa-bullhorn mb-2" style="font-size: 40px;"></i>
+        <div class="btn-panic mx-auto" id="mainButton" onclick="sendPanic()">
+            <i class="fas fa-bullhorn mb-2" style="font-size: 45px;"></i>
             <span>PANIC<br>BUTTON</span>
-        </button>
-        <p class="mt-4 small text-secondary"><b>SITUASI DARURAT?</b><br>Tekan tombol untuk bantuan pengurus & warga.</p>
-        <button class="btn btn-link btn-sm text-muted mt-5 text-decoration-none" onclick="resetAddress()">
-            <i class="fas fa-sync-alt me-1"></i> Ganti Identitas Unit
+        </div>
+        <p class="mt-5 small text-secondary"><b>BUTUH BANTUAN?</b><br>Tekan tombol di atas. Sinyal akan dikirim ke Grup Warga & Seluruh Pengurus.</p>
+        <button class="btn btn-link btn-sm text-white-50 mt-4 text-decoration-none" onclick="resetAddress()">
+            <i class="fas fa-sync-alt me-1"></i> Ganti Nomor Unit
         </button>
     </div>
 </div>
 
 <script>
-    const GAS_URL = "https://script.google.com/macros/s/AKfycbwyr-5fO-Pql3inAQ2yLhwgbV9xngSUgTkSAhIotfFPlJPlRNzg3BbDCKZLjHhS0kQJ/exec"; // GANTI INI
+    // URL WEB APP GAS BAPAK
+    const GAS_URL = "https://script.google.com/macros/s/AKfycbwyr-5fO-Pql3inAQ2yLhwgbV9xngSUgTkSAhIotfFPlJPlRNzg3BbDCKZLjHhS0kQJ/exec"; 
     let WARGA_LIST = {};
 
     window.onload = () => {
@@ -88,6 +140,13 @@
         } else {
             fetchWarga();
         }
+
+        // Tutup dropdown kalau klik di luar area cari
+        document.addEventListener('click', function(e) {
+            if (!document.getElementById('searchArea').contains(e.target)) {
+                document.getElementById('suggestionBox').style.display = 'none';
+            }
+        });
     };
 
     function fetchWarga() {
@@ -97,7 +156,6 @@
             .then(data => {
                 WARGA_LIST = data;
                 document.getElementById('loadingData').style.display = 'none';
-                document.getElementById('searchInput').placeholder = "Cari Unit (Contoh: F1-07)";
             })
             .catch(err => {
                 document.getElementById('loadingData').innerHTML = "<span class='text-danger'>Gagal memuat database. Cek koneksi internet.</span>";
@@ -109,7 +167,7 @@
         if (val.length < 1) { box.style.display = 'none'; return; }
 
         const matches = Object.keys(WARGA_LIST).filter(unit => {
-            const nama = WARGA_LIST[unit].toLowerCase();
+            const nama = WARGA_LIST[unit] ? WARGA_LIST[unit].toLowerCase() : "";
             return unit.toLowerCase().includes(val.toLowerCase()) || nama.includes(val.toLowerCase());
         });
 
@@ -147,20 +205,20 @@
 
     function sendPanic() {
         const unit = localStorage.getItem('rt05_unit');
-        const nama = localStorage.getItem('rt05_nama');
         const btn = document.getElementById('mainButton');
 
-        if(!confirm("KIRIM SINYAL DARURAT SEKARANG?\nLaporan akan masuk ke Grup Warga & Pengurus.")) return;
+        if(!confirm("KIRIM SINYAL DARURAT SEKARANG?\nData bantuan akan masuk ke Grup Warga & Pengurus.")) return;
 
-        btn.disabled = true;
+        // Visual Loading
+        btn.onclick = null; // Mencegah double klik
         btn.style.animation = 'none';
-        btn.innerHTML = '<div class="spinner-border text-white"></div>';
+        btn.innerHTML = '<div class="spinner-border spinner-border-custom"></div>';
 
         fetch(`${GAS_URL}?action=panic&unit=${unit}`)
             .then(res => res.json())
             .then(data => {
                 alert(data.message);
-                location.reload(); // Refresh untuk reset state tombol
+                location.reload(); // Reset state
             })
             .catch(err => {
                 alert("Gagal terhubung. Pastikan internet aktif.");
