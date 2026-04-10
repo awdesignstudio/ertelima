@@ -261,7 +261,7 @@
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 15px;
-            margin-bottom: 20px;
+            margin-bottom: 15px;
         }
 
         .card-small {
@@ -281,9 +281,9 @@
         .card-small i { font-size: 28px; color: var(--primary-color); margin-bottom: 10px; display: block; }
         .card-small span { font-size: 14px; font-weight: 600; }
 
-        .btn-presensi-main {
-            grid-column: span 2;
-            background: linear-gradient(135deg, var(--presensi-color), #8e24aa);
+        /* TOMBOL HUBUNGI PENGURUS MEMANJANG DI BAWAH */
+        .btn-pengurus-main {
+            background: linear-gradient(135deg, var(--wa-color), #128c7e);
             color: white;
             padding: 18px;
             border-radius: 20px;
@@ -293,10 +293,12 @@
             justify-content: center;
             gap: 12px;
             font-weight: 600;
-            box-shadow: 0 4px 12px rgba(106, 27, 154, 0.2);
+            box-shadow: 0 4px 12px rgba(37, 211, 102, 0.2);
             cursor: pointer;
-            margin-bottom: 5px;
+            margin-bottom: 20px;
+            width: 100%;
         }
+        .btn-pengurus-main:active { transform: scale(0.98); }
 
         #app-viewer {
             display: none;
@@ -556,11 +558,10 @@
             </div>
 
             <div class="grid-menu">
-                <div onclick="openInPortal('https://script.google.com/macros/s/AKfycbzGqfvfOPlsEp1SqLO6u38c4CiO3qn8BsaznC7KtKYptjKbykknsa33bNg9PtohvvxF/exec', 'Presensi Kegiatan')" class="btn-presensi-main">
-                    <i class="fas fa-user-check"></i>
-                    <span>Presensi Kehadiran Kegiatan</span>
+                <div onclick="openInPortal('https://script.google.com/macros/s/AKfycbzGqfvfOPlsEp1SqLO6u38c4CiO3qn8BsaznC7KtKYptjKbykknsa33bNg9PtohvvxF/exec', 'Presensi Kegiatan')" class="card-small">
+                    <i class="fas fa-user-check" style="color: var(--presensi-color);"></i>
+                    <span>Presensi Kehadiran</span>
                 </div>
-
                 <div onclick="openInPortal('https://script.google.com/macros/s/AKfycbyKkn3WuDkeW3fAFDyLBvaQuR2mxBb5uxrAW6O1XZqXE4cCoeSA0mPvQdtdVfaSdSLV/exec', 'Denah & Monitoring')" class="card-small">
                     <i class="fas fa-map-marked-alt"></i>
                     <span>Denah & Monitoring</span>
@@ -573,10 +574,11 @@
                     <i class="fas fa-exclamation-circle" style="color: #d32f2f;"></i>
                     <span>Laporan Warga (E-Lapor)</span>
                 </div>
-                <div onclick="showPengurusPage()" class="card-small">
-                    <i class="fab fa-whatsapp" style="color: var(--wa-color);"></i>
-                    <span>Hubungi Pengurus</span>
-                </div>
+            </div>
+
+            <div onclick="showPengurusPage()" class="btn-pengurus-main">
+                <i class="fab fa-whatsapp"></i>
+                <span>Hubungi Pengurus RT 05</span>
             </div>
         </div>
 
