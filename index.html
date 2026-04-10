@@ -25,6 +25,7 @@
             --db-color: #00796b;
             --presensi-color: #6a1b9a;
             --manual-color: #1b5e20;
+            --wa-color: #25d366;
         }
 
         * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -353,7 +354,7 @@
         
         .secret-trigger:hover { color: #aaa; }
 
-        #admin-page, #presensi-sub-page { display: none; }
+        #admin-page, #presensi-sub-page, #pengurus-page { display: none; }
         .admin-header { text-align: center; margin-bottom: 30px; }
         .admin-header h2 { color: var(--primary-color); }
 
@@ -400,6 +401,39 @@
             text-decoration: none;
             font-size: 14px;
             cursor: pointer;
+        }
+
+        /* STYLING HALAMAN PENGURUS */
+        .pengurus-list {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 12px;
+        }
+        .pengurus-item {
+            background: white;
+            padding: 15px;
+            border-radius: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            border: 1px solid #eee;
+        }
+        .pengurus-info h4 { font-size: 14px; color: var(--text-color); margin-bottom: 2px; }
+        .pengurus-info p { font-size: 11px; color: var(--primary-color); font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; }
+        
+        .btn-wa-member {
+            background-color: var(--wa-color);
+            color: white;
+            padding: 10px 14px;
+            border-radius: 12px;
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 4px 8px rgba(37, 211, 102, 0.2);
         }
 
         .modal-overlay {
@@ -496,6 +530,10 @@
             </div>
 
             <div class="grid-menu">
+                <div onclick="showPengurusPage()" class="card-small">
+                    <i class="fab fa-whatsapp" style="color: var(--wa-color);"></i>
+                    <span>Hubungi Pengurus</span>
+                </div>
                 <div onclick="openInPortal('https://script.google.com/macros/s/AKfycbyKkn3WuDkeW3fAFDyLBvaQuR2mxBb5uxrAW6O1XZqXE4cCoeSA0mPvQdtdVfaSdSLV/exec', 'Denah & Monitoring')" class="card-small">
                     <i class="fas fa-map-marked-alt"></i>
                     <span>Denah & Monitoring</span>
@@ -516,6 +554,126 @@
                     <i class="fas fa-user-check"></i>
                     <span>Presensi Kehadiran Kegiatan</span>
                 </div>
+            </div>
+        </div>
+
+        <div id="pengurus-page">
+            <div class="admin-header">
+                <i class="fab fa-whatsapp" style="font-size: 40px; color: var(--wa-color); margin-bottom: 10px;"></i>
+                <h2>Hubungi Pengurus</h2>
+                <p style="font-size: 13px; color: #666;">Silakan hubungi pengurus terkait melalui WhatsApp</p>
+            </div>
+
+            <div class="pengurus-list">
+                <div class="pengurus-item">
+                    <div class="pengurus-info">
+                        <h4>Wahyu Triyanto</h4>
+                        <p>Ketua RT</p>
+                    </div>
+                    <a href="https://wa.me/628122761785" class="btn-wa-member" target="_blank"><i class="fab fa-whatsapp"></i> Chat</a>
+                </div>
+                <div class="pengurus-item">
+                    <div class="pengurus-info">
+                        <h4>Adhi Wijaya</h4>
+                        <p>Sekretaris</p>
+                    </div>
+                    <a href="https://wa.me/6285133748005" class="btn-wa-member" target="_blank"><i class="fab fa-whatsapp"></i> Chat</a>
+                </div>
+                <div class="pengurus-item">
+                    <div class="pengurus-info">
+                        <h4>Roni. A</h4>
+                        <p>Bendahara 1</p>
+                    </div>
+                    <a href="https://wa.me/6287837040610" class="btn-wa-member" target="_blank"><i class="fab fa-whatsapp"></i> Chat</a>
+                </div>
+                <div class="pengurus-item">
+                    <div class="pengurus-info">
+                        <h4>Bambang Yudadi</h4>
+                        <p>Bendahara 2</p>
+                    </div>
+                    <a href="https://wa.me/6289515823159" class="btn-wa-member" target="_blank"><i class="fab fa-whatsapp"></i> Chat</a>
+                </div>
+                <div class="pengurus-item">
+                    <div class="pengurus-info">
+                        <h4>Sunaryo</h4>
+                        <p>Seksi Humas</p>
+                    </div>
+                    <a href="https://wa.me/6281328447735" class="btn-wa-member" target="_blank"><i class="fab fa-whatsapp"></i> Chat</a>
+                </div>
+                <div class="pengurus-item">
+                    <div class="pengurus-info">
+                        <h4>Rangga Novan Tristianto</h4>
+                        <p>Seksi Keamanan</p>
+                    </div>
+                    <a href="https://wa.me/6285643063033" class="btn-wa-member" target="_blank"><i class="fab fa-whatsapp"></i> Chat</a>
+                </div>
+                <div class="pengurus-item">
+                    <div class="pengurus-info">
+                        <h4>Riszal Dwi Utomo</h4>
+                        <p>Seksi Keamanan</p>
+                    </div>
+                    <a href="https://wa.me/6281227106232" class="btn-wa-member" target="_blank"><i class="fab fa-whatsapp"></i> Chat</a>
+                </div>
+                <div class="pengurus-item">
+                    <div class="pengurus-info">
+                        <h4>Aldi</h4>
+                        <p>Seksi Kebersihan</p>
+                    </div>
+                    <a href="https://wa.me/6282145251990" class="btn-wa-member" target="_blank"><i class="fab fa-whatsapp"></i> Chat</a>
+                </div>
+                <div class="pengurus-item">
+                    <div class="pengurus-info">
+                        <h4>Ganjar Widya Triarsono</h4>
+                        <p>Seksi Kebersihan</p>
+                    </div>
+                    <a href="https://wa.me/6281567733550" class="btn-wa-member" target="_blank"><i class="fab fa-whatsapp"></i> Chat</a>
+                </div>
+                <div class="pengurus-item">
+                    <div class="pengurus-info">
+                        <h4>Reza Devani</h4>
+                        <p>Seksi Pembangunan</p>
+                    </div>
+                    <a href="https://wa.me/6282226023598" class="btn-wa-member" target="_blank"><i class="fab fa-whatsapp"></i> Chat</a>
+                </div>
+                <div class="pengurus-item">
+                    <div class="pengurus-info">
+                        <h4>Azhar A. Afifi</h4>
+                        <p>Seksi Pemuda & Olahraga</p>
+                    </div>
+                    <a href="https://wa.me/6287730569019" class="btn-wa-member" target="_blank"><i class="fab fa-whatsapp"></i> Chat</a>
+                </div>
+                <div class="pengurus-item">
+                    <div class="pengurus-info">
+                        <h4>Handoyo</h4>
+                        <p>Seksi Pemuda & Olahraga</p>
+                    </div>
+                    <a href="https://wa.me/6285803918511" class="btn-wa-member" target="_blank"><i class="fab fa-whatsapp"></i> Chat</a>
+                </div>
+                <div class="pengurus-item">
+                    <div class="pengurus-info">
+                        <h4>Moh Rizal Syabani</h4>
+                        <p>Seksi Keagamaan</p>
+                    </div>
+                    <a href="https://wa.me/628112969449" class="btn-wa-member" target="_blank"><i class="fab fa-whatsapp"></i> Chat</a>
+                </div>
+                <div class="pengurus-item">
+                    <div class="pengurus-info">
+                        <h4>Bayu Aji Wicaksono</h4>
+                        <p>Seksi Kesehatan</p>
+                    </div>
+                    <a href="https://wa.me/6282328973310" class="btn-wa-member" target="_blank"><i class="fab fa-whatsapp"></i> Chat</a>
+                </div>
+                <div class="pengurus-item">
+                    <div class="pengurus-info">
+                        <h4>Royan Falahudin</h4>
+                        <p>Seksi Ekonomi & Kreatif Event</p>
+                    </div>
+                    <a href="https://wa.me/6285725919992" class="btn-wa-member" target="_blank"><i class="fab fa-whatsapp"></i> Chat</a>
+                </div>
+            </div>
+
+            <div class="btn-back" onclick="goHome()">
+                <i class="fas fa-chevron-left"></i> Kembali ke Beranda
             </div>
         </div>
 
@@ -734,9 +892,18 @@
 
         window.onload = loadAnnouncements;
 
+        function showPengurusPage() {
+            document.getElementById('main-page').style.display = 'none';
+            document.getElementById('admin-page').style.display = 'none';
+            document.getElementById('presensi-sub-page').style.display = 'none';
+            document.getElementById('pengurus-page').style.display = 'block';
+            window.scrollTo(0,0);
+        }
+
         function goToAdmin() {
             document.getElementById('main-page').style.display = 'none';
             document.getElementById('presensi-sub-page').style.display = 'none';
+            document.getElementById('pengurus-page').style.display = 'none';
             document.getElementById('admin-page').style.display = 'block';
             window.scrollTo(0,0);
         }
@@ -748,6 +915,7 @@
 
         function goHome() {
             document.getElementById('admin-page').style.display = 'none';
+            document.getElementById('pengurus-page').style.display = 'none';
             document.getElementById('main-page').style.display = 'block';
             resetAccordions();
         }
