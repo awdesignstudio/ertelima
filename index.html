@@ -90,37 +90,58 @@
             position: relative;
         }
 
-        /* PANIC BUTTON FLOATING STYLE */
-        .btn-panic-float {
+        /* --- PERBAIKAN PANIC BUTTON STYLE (FINAL ADJUSTMENT) --- */
+        
+        .panic-button-wrapper {
             position: absolute;
-            top: -15px;
-            right: 5px;
-            width: 75px;
-            height: 75px;
-            background-color: var(--danger);
-            color: white;
+            top: -28px; 
+            right: -8px; /* Digeser sedikit ke kanan agar tidak menumpuk teks iuran */
+            width: 96px; /* Ukuran wrapper statis */
+            height: 96px; 
+            background-color: var(--bg-color); /* Warna murni background halaman */
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
+            z-index: 1500;
+            /* box-shadow 1px membantu blending dengan background jika ada pixel gap */
+            box-shadow: 0 0 0 1px var(--bg-color); 
+        }
+
+        .btn-panic-float {
+            width: 82px; /* Ukuran lingkaran merah diperbesar agar outline tidak terlalu tebal */
+            height: 82px; 
+            background-color: var(--danger);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
             text-align: center;
-            font-size: 12px;
+            font-size: 10px; 
             font-weight: 700;
             line-height: 1.1;
             cursor: pointer;
-            z-index: 1500;
             box-shadow: 0 4px 15px rgba(211, 47, 47, 0.4);
-            border: 2px solid white;
-            animation: ripple 2s infinite;
-            text-transform: lowercase;
-            padding: 5px;
+            border: none;
+            animation: ripple 2s infinite; 
+            text-transform: uppercase;
+            padding: 10px;
+            gap: 2px;
+        }
+
+        .btn-panic-float i {
+            font-size: 20px; /* Ikon lonceng sedikit lebih besar */
+            margin-bottom: 1px;
         }
 
         @keyframes ripple {
             0% { box-shadow: 0 0 0 0 rgba(211, 47, 47, 0.7); transform: scale(0.95); }
-            70% { box-shadow: 0 0 0 15px rgba(211, 47, 47, 0); transform: scale(1); }
+            70% { box-shadow: 0 0 0 20px rgba(211, 47, 47, 0); transform: scale(1); } 
             100% { box-shadow: 0 0 0 0 rgba(211, 47, 47, 0); transform: scale(0.95); }
         }
+        /* --- AKHIR PERBAIKAN PANIC BUTTON STYLE --- */
 
         .hero-card {
             background: linear-gradient(135deg, #43a047, #2e7d32);
@@ -143,8 +164,8 @@
         }
 
         .hero-card:active { transform: scale(0.97); }
-        .hero-text h2 { font-size: 20px; font-weight: 700; margin-bottom: 5px; }
-        .hero-text p { font-size: 14px; opacity: 0.9; }
+        .hero-text h2 { font-size: 20px; font-weight: 700; margin-bottom: 5px; max-width: 80%; } /* Batasi lebar agar tidak kena tombol */
+        .hero-text p { font-size: 14px; opacity: 0.9; max-width: 80%; }
 
         .hero-icon {
             font-size: 50px;
@@ -165,7 +186,6 @@
             display: inline-block;
         }
 
-        /* TOMBOL KAS RT MENCOLOK & CENTER */
         .card-kas-outside {
             background: linear-gradient(135deg, #ff9800, #ef6c00);
             border-radius: 20px;
@@ -284,7 +304,6 @@
         .card-small i { font-size: 28px; color: var(--primary-color); margin-bottom: 10px; display: block; }
         .card-small span { font-size: 14px; font-weight: 600; }
 
-        /* TOMBOL HUBUNGI PENGURUS MEMANJANG DI BAWAH */
         .btn-pengurus-main {
             background: linear-gradient(135deg, var(--wa-color), #128c7e);
             color: white;
@@ -429,7 +448,6 @@
             cursor: pointer;
         }
 
-        /* STYLING HALAMAN PENGURUS */
         .pengurus-list {
             display: grid;
             grid-template-columns: 1fr;
@@ -533,8 +551,11 @@
     <div class="container" id="main-container">
         
         <div id="main-page">
-            <div onclick="openInPortal('panic.html', 'Panic Button')" class="btn-panic-float">
-                <span>panic<br>button</span>
+            <div class="panic-button-wrapper">
+                <div onclick="openInPortal('panic.html', 'Panic Button')" class="btn-panic-float">
+                    <i class="fas fa-bell"></i>
+                    <span>PANIC BUTTON</span>
+                </div>
             </div>
 
             <div onclick="openInPortal('https://script.google.com/macros/s/AKfycbwbz-vQqz5OrxFp-1qiiJgRUyKTA9lq23a18Xl43SB3Zcc8bYXYth3sNCfNUopEsnAk/exec', 'Pembayaran Iuran')" class="hero-card">
@@ -772,7 +793,7 @@
                     <span>MANAJEMEN DATA DENAH WARGA</span>
                 </button>
                 
-                <button class="btn-admin btn-pr" onclick="openInPortal('https://script.google.com/macros/s/AKfycbyGqfvfOPlsEp1SqLO6u38c4CiO3qn8BsaznC7KtKYptjKbykknsa33bNg9PtohvvxF/exec?page=rekap', 'Rekap Kehadiran')">
+                <button class="btn-admin btn-pr" onclick="openInPortal('https://script.google.com/macros/s/AKfycbzGqfvfOPlsEp1SqLO6u38c4CiO3qn8BsaznC7KtKYptjKbykknsa33bNg9PtohvvxF/exec?page=rekap', 'Rekap Kehadiran')">
                     <i class="fas fa-file-alt"></i>
                     <span>Rekap Kehadiran Warga</span>
                 </button>
@@ -847,7 +868,7 @@
         ];
 
         const CONFIG = {
-            'b1_manual': { pin: "784512", url: "https://script.google.com/macros/s/AKfycbyvVI1YR3Dh3bYdUOf6D5irerN7mQZoSsz-s2Vdpl_v8sBB-5s3_ljEr-C24mSozYUVPg/exec", title: "Input Iuran Manual" },
+            'b1_manual': { pin: "784512", url: "https://script.google.com/macros/s/AKfycbyvVI1YR3Dh3bYdUOf6D5irerN7mQZoSsz-s2Vdpl_v8sBB-5s3_ljEr-C24mSo?exec", title: "Input Iuran Manual" },
             'b1': { pin: "784512", url: "https://script.google.com/macros/s/AKfycbylHDBkFPgjwp_06kuyXAq4N9Fs5Qc1-zjOUguqATELWC3V7uijR05tbRvJomCkjWosPA/exec", title: "Input Data Bendahara 1" },
             'b2': { pin: "748596", url: "https://script.google.com/macros/s/AKfycbznJXao3iX_MoxlrVKUdRB7Olr2yvft1QxHdp2TaUIhUFGfTGT1DI8zlwTj7D0Fe0kk-g/exec", title: "Input Data Bendahara 2" },
             'db': { pin: "895623", url: "https://script.google.com/macros/s/AKfycbxh80hKAAPAkPQ-g9vc3DoV2juZ6XQZod1cPKXcU-60x8-Md_TX3zbkFHxqDH0FjIjY-A/exec", title: "Database Warga" },
