@@ -89,13 +89,37 @@
 
         .unit-display { font-size: 1.4rem; margin-bottom: 25px; color: #ffc107; font-weight: 800; text-shadow: 0 2px 10px rgba(255,193,7,0.4); }
         #setupView, #panicView { display: none; }
-        .loader-text { font-size: 0.85rem; color: #888; margin-top: 15px; }
         
+        /* Teks Keterangan yang Diperbaiki Kontrasnya */
+        .instruction-text { 
+            font-size: 0.85rem; 
+            color: #cccccc; /* Warna lebih terang agar kontras dengan background */
+            margin-top: 2rem;
+            line-height: 1.5;
+        }
+        
+        .loader-text { font-size: 0.85rem; color: #bbb; margin-top: 15px; }
         .spinner-border-custom { width: 3rem; height: 3rem; color: #d32f2f; }
 
-        /* RESET BUTTON COLOR FIX */
-        .btn-reset-identity { color: #ffffff !important; opacity: 0.8; font-weight: 600; }
-        .btn-reset-identity:hover { opacity: 1; color: #ffc107 !important; }
+        /* RESET BUTTON STYLE (Sekarang terlihat seperti tombol) */
+        .btn-reset-identity { 
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            color: #ffffff !important; 
+            font-weight: 600; 
+            padding: 8px 20px;
+            border-radius: 30px;
+            font-size: 0.75rem;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .btn-reset-identity:hover { 
+            background: rgba(255, 255, 255, 0.2);
+            border-color: #ffc107;
+            color: #ffc107 !important; 
+            transform: translateY(-2px);
+        }
 
         /* CUSTOM MODAL STYLE */
         .modal-content { background: #2a2a2a; color: white; border-radius: 20px; border: 1px solid #444; }
@@ -111,7 +135,7 @@
     <div id="setupView">
         <i class="fas fa-shield-alt fa-4x mb-3 text-danger"></i>
         <h3 class="fw-bold mb-1">Aktivasi Tombol</h3>
-        <p class="small text-secondary mb-4">Cari Unit atau Nama Anda untuk mengunci identitas Panic Button ini.</p>
+        <p class="small mb-4" style="color: #bbb;">Cari Unit atau Nama Anda untuk mengunci identitas Panic Button ini.</p>
         
         <div class="search-container mb-4" id="searchArea">
             <input type="text" id="searchInput" class="form-control form-control-lg" 
@@ -130,8 +154,11 @@
             <i class="fas fa-bullhorn mb-2" style="font-size: 45px;"></i>
             <span>PANIC<br>BUTTON</span>
         </div>
-        <p class="mt-5 small text-secondary"><b>KONDISI DARURAT, BUTUH BANTUAN?</b><br>Tekan tombol di atas. Sinyal akan dikirim ke Grup Warga & Seluruh Pengurus.</p>
-        <button class="btn btn-link btn-sm mt-4 text-decoration-none btn-reset-identity" onclick="askReset()">
+        <div class="instruction-text">
+            <p><b>KONDISI DARURAT, BUTUH BANTUAN?</b><br>
+            Tekan tombol di atas. Sinyal akan dikirim ke Grup Warga & Seluruh Pengurus.</p>
+        </div>
+        <button class="btn mt-4 text-decoration-none btn-reset-identity" onclick="askReset()">
             <i class="fas fa-sync-alt me-1"></i> Ganti Nomor Unit
         </button>
     </div>
@@ -155,7 +182,7 @@
             <div class="modal-body">
                 <i id="confirmIcon" class="fas fa-question-circle fa-3x mb-3 text-warning"></i>
                 <h5 id="confirmTitle" class="fw-bold mb-2">Konfirmasi</h5>
-                <p id="confirmMessage" class="small text-secondary mb-4"></p>
+                <p id="confirmMessage" class="small mb-4" style="color: #bbb;"></p>
                 <div class="d-flex gap-2">
                     <button type="button" class="btn-cancel flex-fill" data-bs-dismiss="modal">BATAL</button>
                     <button type="button" id="confirmActionBtn" class="btn-confirm flex-fill">YA, LANJUT</button>
