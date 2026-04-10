@@ -164,6 +164,26 @@
             display: inline-block;
         }
 
+        /* STYLED FOR KAS RT (OUTSIDE GRID) */
+        .card-kas-outside {
+            background: white;
+            border-radius: 20px;
+            padding: 15px 25px;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            text-decoration: none;
+            color: var(--text-color);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            margin-bottom: 20px;
+            border: 1px solid #eee;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        .card-kas-outside:active { transform: scale(0.98); background: #fafafa; }
+        .card-kas-outside i { font-size: 24px; color: #ef6c00; }
+        .card-kas-outside span { font-weight: 700; font-size: 15px; }
+
         .announcement-board {
             background: white;
             border-radius: 25px;
@@ -275,6 +295,7 @@
             font-weight: 600;
             box-shadow: 0 4px 12px rgba(106, 27, 154, 0.2);
             cursor: pointer;
+            margin-bottom: 5px;
         }
 
         #app-viewer {
@@ -521,6 +542,11 @@
                 <i class="fas fa-wallet hero-icon"></i>
             </div>
 
+            <div onclick="openInPortal('https://script.google.com/macros/s/AKfycbxkb6X31X_jLzffZQ0glJWZandvgJ1JyHXu0vrrGNjf6H9gFWzyf8dc_hTRM0XAdHYgUg/exec', 'Laporan Kas RT')" class="card-kas-outside">
+                <i class="fas fa-file-invoice-dollar"></i>
+                <span>Laporan Kas RT (Update Real-time)</span>
+            </div>
+
             <div class="announcement-board">
                 <div class="announcement-header">
                     <i class="fas fa-bullhorn"></i>
@@ -530,17 +556,14 @@
             </div>
 
             <div class="grid-menu">
-                <div onclick="showPengurusPage()" class="card-small">
-                    <i class="fab fa-whatsapp" style="color: var(--wa-color);"></i>
-                    <span>Hubungi Pengurus</span>
+                <div onclick="openInPortal('https://script.google.com/macros/s/AKfycbzGqfvfOPlsEp1SqLO6u38c4CiO3qn8BsaznC7KtKYptjKbykknsa33bNg9PtohvvxF/exec', 'Presensi Kegiatan')" class="btn-presensi-main">
+                    <i class="fas fa-user-check"></i>
+                    <span>Presensi Kehadiran Kegiatan</span>
                 </div>
+
                 <div onclick="openInPortal('https://script.google.com/macros/s/AKfycbyKkn3WuDkeW3fAFDyLBvaQuR2mxBb5uxrAW6O1XZqXE4cCoeSA0mPvQdtdVfaSdSLV/exec', 'Denah & Monitoring')" class="card-small">
                     <i class="fas fa-map-marked-alt"></i>
                     <span>Denah & Monitoring</span>
-                </div>
-                <div onclick="openInPortal('https://script.google.com/macros/s/AKfycbxkb6X31X_jLzffZQ0glJWZandvgJ1JyHXu0vrrGNjf6H9gFWzyf8dc_hTRM0XAdHYgUg/exec', 'Laporan Kas RT')" class="card-small">
-                    <i class="fas fa-file-invoice-dollar" style="color: #ef6c00;"></i>
-                    <span>Laporan Kas RT</span>
                 </div>
                 <div onclick="openInPortal('https://script.google.com/macros/s/AKfycbx3BCo6HJfxycGLx-MTDb55M4ZnG1Ae10kDCx5d_yuKGp0RvqAYykHums82apcBRkfykA/exec', 'Notulen Pertemuan')" class="card-small">
                     <i class="fas fa-file-signature" style="color: #2e7d32;"></i>
@@ -550,9 +573,9 @@
                     <i class="fas fa-exclamation-circle" style="color: #d32f2f;"></i>
                     <span>Laporan Warga (E-Lapor)</span>
                 </div>
-                <div onclick="openInPortal('https://script.google.com/macros/s/AKfycbzGqfvfOPlsEp1SqLO6u38c4CiO3qn8BsaznC7KtKYptjKbykknsa33bNg9PtohvvxF/exec', 'Presensi Kegiatan')" class="btn-presensi-main">
-                    <i class="fas fa-user-check"></i>
-                    <span>Presensi Kehadiran Kegiatan</span>
+                <div onclick="showPengurusPage()" class="card-small">
+                    <i class="fab fa-whatsapp" style="color: var(--wa-color);"></i>
+                    <span>Hubungi Pengurus</span>
                 </div>
             </div>
         </div>
