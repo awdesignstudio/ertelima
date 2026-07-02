@@ -406,7 +406,7 @@
         
         .secret-trigger:hover, .petugas-trigger:hover { color: #aaa; }
 
-        #admin-page, #presensi-sub-page, #pengurus-page, #b1-sub-page { display: none; }
+        #admin-page, #presensi-sub-page, #pengurus-page, #b1-sub-page, #rt-sub-page { display: none; }
         .admin-header { text-align: center; margin-bottom: 30px; }
         .admin-header h2 { color: var(--primary-color); }
 
@@ -744,9 +744,9 @@
             </div>
 
             <div class="admin-grid">
-                <button class="btn-admin" style="background: linear-gradient(135deg, #1b5e20, #2e7d32); padding:20px; border-left: 8px solid #ffeb3b;" onclick="openPinModal('rt_perantara')">
-                    <i class="fas fa-handholding-usd"></i>
-                    <span>PAK RT: TERIMA UANG DARI PETUGAS</span>
+                <button class="btn-admin" style="background: linear-gradient(135deg, #1b5e20, #2e7d32); padding:20px; border-left: 8px solid #ffeb3b;" onclick="openPinModal('menu_rt')">
+                    <i class="fas fa-user-tie"></i>
+                    <span>MENU PAK RT</span>
                 </button>
 
                 <button class="btn-admin btn-b1" onclick="openPinModal('b1')">
@@ -773,6 +773,27 @@
 
             <div class="btn-back" onclick="goHome()">
                 <i class="fas fa-chevron-left"></i> Kembali ke Beranda
+            </div>
+        </div>
+        
+        <div id="rt-sub-page">
+            <div class="admin-header">
+                <i class="fas fa-user-tie" style="font-size: 40px; color: #1b5e20; margin-bottom: 10px;"></i>
+                <h2>Menu Pak RT</h2>
+                <p style="font-size: 13px; color: #666;">Manajemen dan Persetujuan RT</p>
+            </div>
+            <div class="admin-grid">
+                <button class="btn-admin" style="background: linear-gradient(135deg, #1b5e20, #2e7d32); padding:20px; border-left: 8px solid #ffeb3b;" onclick="openInPortal('https://script.google.com/macros/s/AKfycbywQUNY6Mcd8Z876v5kPbRGUltXKu29J2WaKivT_FO28F4ErhrVfGaDSKuvEzCW99DFHQ/exec?page=perantara', 'Terima Uang dari Petugas')">
+                    <i class="fas fa-handholding-usd"></i>
+                    <span>TERIMA UANG DARI PETUGAS</span>
+                </button>
+                <button class="btn-admin" style="background: #d32f2f; padding:20px; border-left: 8px solid #ffeb3b;" onclick="openInPortal('https://script.google.com/macros/s/AKfycbzUgqrepcxO1NFczWwRJuRdjfkfsjA6Z_FCq1SybLmXH376tV_4QTgMkQ-nSW1pYwWoMw/exec', 'ACC Pengeluaran Kas')">
+                    <i class="fas fa-file-invoice-dollar"></i>
+                    <span>ACC PENGELUARAN KAS</span>
+                </button>
+            </div>
+            <div class="btn-back" onclick="goToAdminFromSub()">
+                <i class="fas fa-chevron-left"></i> Kembali ke Dashboard
             </div>
         </div>
 
@@ -916,7 +937,7 @@
             'admin': { pin: "142536", url: "https://script.google.com/macros/s/AKfycbzboa6_YMXe5O0YgzFWWh_cfkijTPng3pFqgwkBqgYU0a7u5DvUT3-jeHVN6E3UP_ZC/exec", title: "Dashboard Pengurus" },
             'presensi': { pin: "794613", title: "Manajemen Sekretaris" },
             'petugas': { pin: "748596", url: "https://script.google.com/macros/s/AKfycbywQUNY6Mcd8Z876v5kPbRGUltXKu29J2WaKivT_FO28F4ErhrVfGaDSKuvEzCW99DFHQ/exec?page=petugas", title: "Petugas Input Iuran" },
-            'rt_perantara': { pin: "142536", url: "https://script.google.com/macros/s/AKfycbywQUNY6Mcd8Z876v5kPbRGUltXKu29J2WaKivT_FO28F4ErhrVfGaDSKuvEzCW99DFHQ/exec?page=perantara", title: "Terima Uang dari Petugas" }
+            'menu_rt': { pin: "142536", title: "Menu Pak RT" }
         };
 
         let inputPin = "";
@@ -1007,9 +1028,15 @@
             document.getElementById('presensi-sub-page').style.display = 'block';
             window.scrollTo(0,0);
         }
+        
+        function showRtSub() {
+            hideAllPages();
+            document.getElementById('rt-sub-page').style.display = 'block';
+            window.scrollTo(0,0);
+        }
 
         function hideAllPages() {
-            const pages = ['main-page', 'admin-page', 'pengurus-page', 'presensi-sub-page', 'b1-sub-page'];
+            const pages = ['main-page', 'admin-page', 'pengurus-page', 'presensi-sub-page', 'b1-sub-page', 'rt-sub-page'];
             pages.forEach(p => document.getElementById(p).style.display = 'none');
         }
 
@@ -1074,6 +1101,8 @@
                     showPresensiSub();
                 } else if(currentTarget === 'b1') {
                     showB1Sub();
+                } else if(currentTarget === 'menu_rt') {
+                    showRtSub();
                 } else {
                     openInPortal(targetConfig.url, targetConfig.title);
                 }
