@@ -299,6 +299,7 @@
         .card-small:active { transform: scale(0.95); background: #f0f0f0; }
         .card-small i { font-size: 28px; color: var(--primary-color); margin-bottom: 10px; display: block; }
         .card-small span { font-size: 14px; font-weight: 600; }
+        .card-small.span-2 { grid-column: span 2; } /* Penambahan class span-2 */
 
         .btn-pengurus-main {
             background: linear-gradient(135deg, var(--wa-color), #128c7e);
@@ -609,10 +610,14 @@
                     <i class="fas fa-store" style="color: var(--accent-color);"></i>
                     <span>Etalase Usaha Warga</span>
                 </div>
-                <div onclick="showPengurusPage()" class="card-small">
-                    <i class="fab fa-whatsapp" style="color: var(--wa-color);"></i>
-                    <span>Hubungi Pengurus</span>
+                <div onclick="openInPortal('https://script.google.com/macros/s/AKfycbz0ytlN4snZjBsFPHc-T3OCMUFLBhokKxTrxzyrRGPer0khIGTMh3qxYGtOn5GTxlIt/exec', 'Game Hiburan Warga')" class="card-small">
+                    <i class="fas fa-gamepad" style="color: #9c27b0;"></i>
+                    <span>Game Hiburan</span>
                 </div>
+            </div>
+            <div onclick="showPengurusPage()" class="btn-pengurus-main">
+                <i class="fab fa-whatsapp" style="font-size: 24px;"></i>
+                <span>Hubungi Pengurus RT</span>
             </div>
         </div>
 
@@ -860,10 +865,6 @@
                 <button class="btn-admin btn-dash" onclick="openInPortal('https://script.google.com/macros/s/AKfycbzuQqzFw5eNyBUY0n1GhM2Cu-A9gRppqAbcKCytZDLM2ICOnmQnMXq8TQE0YnDX_-puGw/exec?page=admin', 'Panel Admin Presensi')">
                     <i class="fas fa-user-cog"></i>
                     <span>Panel Admin Presensi</span>
-                </button>
-                <button class="btn-admin btn-b1" onclick="openInPortal('https://script.google.com/macros/s/AKfycbyEMX6NgYpb2QwlX6Uq_5U5bZX2phNlTeNwyN847aFQK-ToCSwG1JYx81g8L2wFZGsV/exec?mode=admin', 'Undian Doorprize (Admin)')">
-                    <i class="fas fa-gift"></i>
-                    <span>Undian Doorprize (Admin)</span>
                 </button>
             </div>
             <div class="btn-back" onclick="goToAdminFromSub()">
